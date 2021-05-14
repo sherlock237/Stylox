@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -19,14 +20,14 @@
      ***************************************************-->
     <!-- cdn links -->
 
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="assets/css/ionicons.min.css" />
-    <link rel="stylesheet" href="assets/css/simple-line-icons.css" />
-    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/plugins.css" />
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}"> />
+    <link rel="stylesheet" href="{% static 'assets/css/ionicons.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/simple-line-icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/plugins.css' %}" />
     <!-- <link rel="stylesheet" href="assets/css/plugins/aos.css" /> -->
-    <link rel="stylesheet" href="assets/css/style.min.css" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}" />
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
 
@@ -133,7 +134,7 @@
             <li>
               <a href="#"><span class="menu-text">Shop Single</span></a>
               <ul class="offcanvas-submenu">
-                <li><a href="single-product.html">Shop Single</a></li>
+                <li><a href="/single-product">Shop Single</a></li>
                 <li>
                   <a href="single-product-configurable.html">Shop Variable</a>
                 </li>
@@ -477,7 +478,7 @@
                   aria-expanded="false"
                 >
                   <img src="assets/img/logo/us-flag.jpg" alt="us flag" />
-                  English
+                  Log In
                   <i class="ion ion-ios-arrow-down"></i>
                 </a>
                 <ul
@@ -487,7 +488,7 @@
                   <li class="active">
                     <a href="#"
                       ><img src="assets/img/logo/us-flag.jpg" alt="us flag" />
-                      English</a
+                      Sign In </a
                     >
                   </li>
                   <li>
@@ -496,7 +497,7 @@
                         src="assets/img/logo/france.jpg"
                         alt="france flag"
                       />
-                      Français</a
+                      Register</a
                     >
                   </li>
                 </ul>
@@ -575,7 +576,7 @@
                 <li class="col-3">
                   <ul>
                     <li class="mega-menu-title"><a href="#">Shop Single</a></li>
-                    <li><a href="single-product.html">Shop Single</a></li>
+                    <li><a href="/single-product">Shop Single</a></li>
                     <li>
                       <a href="single-product-configurable.html"
                         >Shop Variable</a
