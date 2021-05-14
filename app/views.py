@@ -21,3 +21,12 @@ def index(request):
 
     }
     return render(request,'index.html',context)
+
+def loginpage(request):
+    return render(request, "login.html")
+
+def singleproduct(request):
+    return render(request, 'single-product.html')
+
+def checkout(request):
+    return render(request, 'checkout.html')
