@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -19,14 +20,14 @@
      ***************************************************-->
     <!-- cdn links -->
 
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="assets/css/ionicons.min.css" />
-    <link rel="stylesheet" href="assets/css/simple-line-icons.css" />
-    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/plugins.css" />
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}"> />
+    <link rel="stylesheet" href="{% static 'assets/css/ionicons.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/simple-line-icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/plugins.css' %}" />
     <!-- <link rel="stylesheet" href="assets/css/plugins/aos.css" /> -->
-    <link rel="stylesheet" href="assets/css/style.min.css" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}" />
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
 
@@ -741,7 +742,7 @@
     <div class="row">
       <div class="col-12">
         <div class="section-title text-center">
-          <h2 class="title pb-4 text-dark text-capitalize">compare</h2>
+          <h2 class="title pb-4 text-dark text-capitalize">register</h2>
         </div>
       </div>
       <div class="col-12">
@@ -749,94 +750,97 @@
           class="breadcrumb bg-transparent m-0 p-0 align-items-center justify-content-center"
         >
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">compare</li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Log in to your account
+          </li>
         </ol>
       </div>
     </div>
   </div>
 </nav>
 <!-- breadcrumb-section end -->
-<!-- product tab start -->
-<section class="compare-section theme1 pt-80 pb-80">
+
+<!-- login area start -->
+<div class="login-register-area pt-80 pb-80">
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <h3 class="title mb-30 pb-25 text-capitalize">compare</h3>
-        <div class="table-responsive">
-          <table class="table">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">product info</th>
-                <th scope="col" class="text-center">
-                  <img src="assets/img/product/1.png" alt="img" />
-                  <span class="sub-title d-block"
-                    >Originals Kaval nail polish</span
-                  >
-                  <a href="cart.html" class="btn btn-dark btn--lg">
-                    add to cart</a
-                  >
-                </th>
-                <th scope="col" class="text-center">
-                  <img src="assets/img/product/2.png" alt="img" />
-                  <span class="sub-title d-block"
-                    >Water and Wind Resistant cream</span
-                  >
-                  <a href="cart.html" class="btn btn-dark btn--lg">
-                    add to cart</a
-                  >
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Price</th>
-                <td class="text-center">
-                  <span class="whish-list-price"> $38.24 </span>
-                </td>
-                <td class="text-center">
-                  <span class="whish-list-price"> $38.24 </span>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">Description</th>
-                <td class="text-center">
-                  <p>Originals Kaval nail polish</p>
-                </td>
-                <td class="text-center">
-                  <p>Water and Wind Resistant cream</p>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">Availability</th>
-                <td class="text-center">
-                  <span class="badge badge-danger position-static"
-                    >In Stock</span
-                  >
-                </td>
-                <td class="text-center">
-                  <span class="badge badge-danger position-static"
-                    >In Stock</span
-                  >
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">weight</th>
-                <td class="text-center">500 ml</td>
-                <td class="text-center">400 ml</td>
-              </tr>
-              <tr>
-                <th scope="row">colors</th>
-                <td class="text-center">3</td>
-                <td class="text-center">4</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+        <div class="login-register-wrapper">
+          <div class="login-register-tab-list nav">
+            <a data-toggle="tab" href="#lg2">
+              <h4>register</h4>
+            </a>
+          </div>
+          <div class="tab-content">
+            <div id="lg1" class="tab-pane active">
+              <div class="login-form-container">
+                <div class="login-register-form">
+                  <form action="assets/php/contact.php" method="post">
+                    <input
+                      type="text"
+                      name="user-name"
+                      placeholder="Username"
+                    />
+                    <input
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                  />
+                  <input
+                  type="text"
+                  name="password"
+                  placeholder="Password"
+                />
+                    <input
+                      type="password"
+                      name="user-password"
+                      placeholder="Confirm Password"
+                    />
+                    <div class="button-box">
+                      <div class="login-toggle-btn">
+                        <input id="remember" type="checkbox" />
+                        <label for="remember">Remember me</label>
+                        <a href="#">Forgot Password?</a>
+                      </div>
+                      <button type="submit" class="btn btn-dark btn--md">
+                        <span>Register</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div id="lg2" class="tab-pane">
+              <div class="login-form-container">
+                <div class="login-register-form">
+                  <form action="assets/php/contact.php" method="post">
+                    <input
+                      type="text"
+                      name="user-name"
+                      placeholder="Username"
+                    />
+                    <input
+                      type="password"
+                      name="user-password"
+                      placeholder="Password"
+                    />
+                    <input name="user-email" placeholder="Email" type="email" />
+                    <div class="button-box">
+                      <button type="submit" class="btn btn-dark btn--md">
+                        <span>Register</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-<!-- product tab end -->
+</div>
+<!-- login area end -->
 <!-- footer strat -->
 <footer class="bg-light theme1 position-relative">
   <!-- footer bottom start -->

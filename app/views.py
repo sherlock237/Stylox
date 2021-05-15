@@ -25,6 +25,9 @@ def index(request):
 def loginpage(request):
     return render(request, "login.html")
 
+def register(request):
+    return render(request, "register.html")
+
 def singleproduct(request):
     return render(request, 'single-product.html')
 
