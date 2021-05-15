@@ -7,6 +7,6 @@ urlpatterns = [
    
     path('',views.index, name="index"),
     path('login', views.loginpage, name="login"),
-    path('single-product', views.singleproduct),
+    path('<int:prid>', views.singleproduct, name="single-product"),
     path('checkout',views.checkout )
 ]

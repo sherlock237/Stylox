@@ -8,6 +8,7 @@ class Product(models.Model):
     original_price = models.IntegerField(null=False)
     discount = models.IntegerField(null=False) 
     Current_price = models.IntegerField(null=False)
+    rating=models.IntegerField(null=False,default=0)
     Product_display =models.CharField(max_length=256, choices=[('All', 'All'), ('New_Arrival', 'New_Arrival'),('On_Sale','On_Sale'),('Upcoming_product', 'Upcoming_product')],default="")
     Intial_quantity = models.IntegerField(default=0)
     size_available = models.CharField(max_length=256,default="")

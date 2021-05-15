@@ -25,8 +25,13 @@ def index(request):
 def loginpage(request):
     return render(request, "login.html")
 
-def singleproduct(request):
-    return render(request, 'single-product.html')
+def singleproduct(request,prid):
+    prd=Product.objects.filter(prid=prid)
+    
+    context={
+        'prd':prd
+    }
+    return render(request, 'single-product.html',context)
 
 def checkout(request):
     return render(request, 'checkout.html')
