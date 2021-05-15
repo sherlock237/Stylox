@@ -7,7 +7,7 @@ class ProductAdmin(admin.ModelAdmin):
 class BannerAdmin(admin.ModelAdmin):
     list_display = ['banid','image1', 'image2','image3']
 class CheckoutAdmin(admin.ModelAdmin):
-    list_display = ['check_id','Product_id', 'items','name','email']
+    list_display = ['check_id','Product_id', 'items','fname', 'lname','email']
 admin.site.register(Banner,BannerAdmin)
 admin.site.register(Product,ProductAdmin)
 admin.site.register(Checkout,CheckoutAdmin)
