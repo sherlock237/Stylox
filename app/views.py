@@ -1,6 +1,6 @@
 from app.models import Banner
 from django.shortcuts import render
-from .models import Banner,Product, Checkout, User
+from .models import Banner,Product, Checkout, Wishlist, MyProfile
 from django.views.generic.edit import CreateView
 from django.http.response import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
@@ -81,4 +81,24 @@ def sign_up(request):
 
 def logout(request):
     return render(request, 'registration/logout.html')
+
+@login_required
+def add_to_wishlist(req, pk):
+    product = Product.objects.get(pk=pk)
+    cuser, created = MyProfile.objects.get_or_create(user=req.user)
+    Wishlist.objects.create(product = product, current_user = cuser )
+    return HttpResponseRedirect(redirect_to="/wishlist")
+
+
+@login_required()
+def wishlist(request):
+    #add_to_wishlist(request,pk)
+    #product = Wishlist.objects.filter(current_user = pk)
+    #product_details = Product.objects.filter()
+    return render(request, 'wishlist.html')
+
+
+
+
+
 
