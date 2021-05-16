@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app', 
-    'crispy_forms'
+    'crispy_forms',
+    'registration'
 ]
 
 MIDDLEWARE = [
@@ -115,8 +116,18 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = '/accounts/login'
-LOGIN_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+
+ACCOUNT_ACTIVATION_DAYS=3
+
+EMAIL_HOST= 'smtp.gmail.com'
+EMAIL_HOST_USER= 'pranav101sharma@gmail.com'
+EMAIL_HOST_PASSWORD= 'raktveer101'
+EMAIL_PORT= 587
+EMAIL_USE_TLS= True  
+
+LOGIN_REDIRECT_URL = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

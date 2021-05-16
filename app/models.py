@@ -1,8 +1,18 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.db.models.deletion import CASCADE
-User=get_user_model()
+from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 # Create your models here.
+
+class MyProfile(models.Model):
+    user = models.OneToOneField(to=User, on_delete=CASCADE)
+    name = models.CharField(max_length = 100)
+    address = models.TextField(null=True, blank=True)
+    phone_no = models.CharField(validators=[RegexValidator("^0?[5-9]{1}\d{9}$")], max_length=15, null=True, blank=True)
+    def __str__(self):
+        return "%s" % self.user
+
+
 class Product(models.Model):
     prid=models.AutoField(primary_key=True)
     Product_Name = models.CharField(max_length=500)
@@ -48,7 +58,14 @@ class Checkout(models.Model):
     def get_absolute_url(self):
         return('/')
 
-
     def __str__(self):
         return str(self.check_id)
+
+class Wishlist(models.Model):
+    current_user = models.ForeignKey(to=MyProfile, on_delete=CASCADE)
+    product = models.ForeignKey(to=Product, on_delete=CASCADE)
+    added_date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return "%s" % self.current_user
 

@@ -4,68 +4,8 @@
 
 {% load static %}
 {% load crispy_forms_tags %}
-        <div class="col-6 col-lg-3 col-xl-4">
-          <!-- search-form end -->
-          <div class="d-flex align-items-center justify-content-end">
-            <!-- static-media end -->
-            <div class="cart-block-links theme1 d-none d-sm-block">
-              <ul class="d-flex">
-                <li>
-                  <a href="javascript:void(0)" class="search search-toggle">
-                    <i class="icon-magnifier"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="compare.html">
-                    <span class="position-relative">
-                      <i class="icon-shuffle"></i>
-                      <span class="badge cbdg1">1</span>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a class="offcanvas-toggle" href="#offcanvas-wishlist">
-                    <span class="position-relative">
-                      <i class="icon-heart"></i>
-                      <span class="badge cbdg1">3</span>
-                    </span>
-                  </a>
-                </li>
-                <li class="mr-xl-0 cart-block position-relative">
-                  <a class="offcanvas-toggle" href="#offcanvas-cart">
-                    <span class="position-relative">
-                      <i class="icon-bag"></i>
-                      <span class="badge cbdg1">3</span>
-                    </span>
-                  </a>
-                </li>
-                <!-- cart block end -->
-              </ul>
-            </div>
-            <div class="mobile-menu-toggle theme1 d-lg-none">
-              <a href="#offcanvas-mobile-menu" class="offcanvas-toggle">
-                <svg viewbox="0 0 700 550">
-                  <path
-                    d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200"
-                    id="top"
-                  ></path>
-                  <path d="M300,320 L540,320" id="middle"></path>
-                  <path
-                    d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190"
-                    id="bottom"
-                    transform="translate(480, 320) scale(1, -1) translate(-480, -318)"
-                  ></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- header-middle end -->
-</header>
-<!-- header end -->
+      
+
 <!-- breadcrumb-section start -->
 <nav class="breadcrumb-section theme1 bg-lighten2 pt-110 pb-110">
   <div class="container">
@@ -98,77 +38,10 @@
           <form class="personal-information" enctype="multipart/form-data" method="post">
             {% csrf_token %}
             {{form | crispy}}
+            
             <input class="btn btn-dark" type="submit" />
             </form>
-            <!--
-         <form class="personal-information" action="assets/php/contact.php">
-            <div class="row"> 
-              <div class="col-lg-6 col-md-6">
-                <div class="billing-info mb-20px">
-                  <label>First Name</label>
-                  <input type="text" />
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="billing-info mb-20px">
-                  <label>Last Name</label>
-                  <input type="text" />
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="billing-info mb-20px">
-                  <label>Company Name</label>
-                  <input type="text" />
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="billing-info mb-20px">
-                  <label>Street Address</label>
-                  <input
-                    class="billing-address mb-3"
-                    placeholder="House number and street name"
-                    type="text"
-                  />
-                  <input
-                    placeholder="Apartment, suite, unit etc."
-                    type="text"
-                  />
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="billing-info mb-20px">
-                  <label>Town / City</label>
-                  <input type="text" />
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="billing-info mb-20px">
-                  <label>State / County</label>
-                  <input type="text" />
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="billing-info mb-20px">
-                  <label>Postcode / ZIP</label>
-                  <input type="text" />
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="billing-info mb-20px">
-                  <label>Phone</label>
-                  <input type="text" />
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                <div class="billing-info mb-20px">
-                  <label>Email Address</label>
-                  <input type="text" />
-                </div>
-              </div>
-            </div>
-          </form>
-         
-          -->
+
      
           <div class="checkout-account-toggle open-toggle2 mb-30">
             <input placeholder="Email address" type="email" />
