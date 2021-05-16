@@ -14,7 +14,7 @@ urlpatterns = [
     path('accounts/sign_up/', views.SignUpView.as_view(), name='sign_up'),
     path('login', views.loginpage, name="login"),
     path('<int:prid>', views.singleproduct, name="single-product"),
-    path('checkout',views.checkout )
+    path('checkout',views.checkout,name='checkout'),
     path('register', views.register, name="register"),
     path('single-product', views.singleproduct),
     path('checkout', login_required(views.checkoutview.as_view(success_url= '')))
