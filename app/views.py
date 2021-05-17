@@ -1,7 +1,7 @@
 from django.views.generic.base import TemplateView
 from app.models import Banner
 from django.shortcuts import render, redirect
-from .models import Banner,Product, Checkout, Wishlist, MyProfile,Subscribe
+from .models import Banner,Product, Checkout, Wishlist, MyProfile,Subscribe, Contact
 from django.views.generic.edit import CreateView
 from django.http.response import HttpResponseRedirect
 from django.http import JsonResponse
@@ -106,6 +106,22 @@ def loginpage(request):
     return render(request, "login.html") 
 
 def contact(request):
+    if request.method == 'POST':
+        msg = request.POST.get("contactMessage")
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        subject = request.POST.get("subject")
+
+        contact = Contact(
+            name = name,
+            email = email,
+            additional_information = msg,
+            subject = subject
+        )
+
+        contact.save()
+        stri = "Thank you for contacting us. We'll reach you soon."
+        return render(request, 'contact.html', {'message': stri})
     return render(request, 'contact.html')
 
 def register(request):

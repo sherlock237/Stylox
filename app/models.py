@@ -48,6 +48,15 @@ class Banner(models.Model):
     def __str__(self):
         return str(self.banid)
 
+class Contact(models.Model):
+    name = models.CharField(max_length=90, default="")
+    email = models.CharField(max_length=90, default="")
+    subject = models.CharField(max_length=90, default="")
+    additional_information = models.CharField(max_length=5000, default="")
+
+    
+
+
 
 class Checkout(models.Model):
     check_id = models.ForeignKey(User, on_delete=models.CASCADE, null =True)
