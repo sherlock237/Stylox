@@ -3737,9 +3737,10 @@ breadcrumb-section END
 }
 
 .theme1 .actions li:hover .action {
-  background: #5a5ac9;
-  color: #ffffff;
+  background: #5a5ac9; color: #ffffff;
 }
+
+
 
 /******************************** 
     product links style END

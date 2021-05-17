@@ -1,4 +1,5 @@
 {% load static %}
+{% load tags %}
 <!DOCTYPE html>
 <html lang="zxx">
   <head>
@@ -747,7 +748,11 @@
                       <a  href="/wishlist">
                         <span class="position-relative">
                           <i class="icon-heart"></i>
-                          <span class="badge cbdg1">3</span>
+                          {% if user.is_authenticated %}
+                          <span class="badge cbdg1">{% add_variable_to_context request %}</span>
+                          {% else %}
+                          <span class="badge cbdg1">0</span>
+                          {% endif %}
                         </span>
                       </a>
                     </li>
@@ -787,7 +792,8 @@
     </header>
     <!-- header end -->
 
-    {% block content %} {% endblock %}
+    {% block content %} 
+    {% endblock %}
     <!-- footer strat -->
     <footer class="bg-light theme1 position-relative">
       <!-- footer bottom start -->
