@@ -1,9 +1,10 @@
 from django.views.generic.base import TemplateView
 from app.models import Banner
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Banner,Product, Checkout, Wishlist, MyProfile,Subscribe
 from django.views.generic.edit import CreateView
 from django.http.response import HttpResponseRedirect
+from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy
@@ -20,6 +21,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+import re
 # Create your views here.
     # if request.method =='POST' and request.POST['action']=='subs':
     #     email=request.POST.get('email')
@@ -27,13 +29,17 @@ from django.utils.encoding import force_bytes
     #         messages.error(request,'Already subscribed')
     #     else:
     #         demo(email)
-def demo(email):
+def demo(self,email):
     if(User.objects.filter(email=email)):
         sub=Subscribe(email=email,our_user=True)
         sub.save()
+        return "Thank you for subscribing"
     else:
         sub=Subscribe(email=email,our_user=False)
-        sub.save() 
+        sub.save()
+        print("ree") 
+        return "Thank you for subscribing"
+
 
 
 @method_decorator(login_required, name='dispatch')
@@ -75,9 +81,27 @@ class IndexView(TemplateView):
         context['mywish_list'] = productList
 
         return context
-     
-    
-
+    def post(self,*args, **kwargs):
+        if self.request.method =='POST' and self.request.POST['action']=='subs':
+            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$' 
+            msg=""
+            email=self.request.POST.get('email')
+            if(email==""):
+                msg="Please enter valid email address"
+            elif not re.search(regex,email):
+                msg="Please enter valid email address"
+            elif(Subscribe.objects.filter(email=email)):
+                msg='Already subscribed'
+               
+            else:
+                try:
+                    msg=demo(self,email)
+                except:
+                    msg='Unable to Subscribe'
+            context={'msg':msg}
+            return JsonResponse(context)
+        
+                
 def loginpage(request):
     return render(request, "login.html") 
 

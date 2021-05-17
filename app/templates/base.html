@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 <body>
 <!-- offcanvas-overlay start -->
+
 <div class="offcanvas-overlay"></div>
 <!-- offcanvas-overlay end -->
 <!-- offcanvas-mobile-menu start -->
@@ -843,6 +844,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             <div class="nletter-form mb-35">
               <form
                 class="form-inline position-relative" id="subs_form"
+                
               >
                 <input
                   class="form-control"
@@ -851,6 +853,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                   id="subscriber"
                   required
                 />
+                <span id="subs"></span>
                 <button
                   class="btn news-letter-btn text-capitalize" 
                   type="submit" onclick="return subscribe()"
@@ -858,6 +861,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                  Subscribe
                 </button>
               </form>
+              
             </div>
           </div>
         </div>
@@ -1196,7 +1200,27 @@ function subscribe(){
     'action':'subs',
     'email':x,
     csrfmiddlewaretoken: '{{ csrf_token }}'
-    }
+    },
+    dataType: "JSON",
+    success:function(context){
+          
+          var msg=JSON.stringify(context.msg)
+          if(msg==`"Please enter valid email address"`|| msg==`"Unable to Subscribe"`)
+          {
+            document.getElementById('subs').innerHTML=`<label style="color:red">${msg}</label>`;
+             setTimeout(function(){ 
+              document.getElementById("subs").innerHTML = "";
+          }, 5000);
+          }
+          else
+          {
+            document.getElementById('subs').innerHTML=`<label style="color:green">${msg}</label>`;
+            setTimeout(function(){ 
+              document.getElementById("subs").innerHTML = "";
+          }, 5000);
+          }
+          
+          }
     
   })
   return false;
