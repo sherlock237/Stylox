@@ -22,6 +22,9 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 import re
+import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 # Create your views here.
     # if request.method =='POST' and request.POST['action']=='subs':
     #     email=request.POST.get('email')
@@ -215,6 +218,23 @@ def remove_from_table_wishlist(req, pk):
     Wishlist.objects.filter(product = product, current_user = req.user.myprofile).delete()
     return HttpResponseRedirect(redirect_to="/wishlist")
 
+def emailit(receiver_email,content,ctype):
+    #print(receiver_email)
+    sender_email = ""
+    password = ""
+    
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "Stylox Admin:Password Reset Requested "
+    message["From"] = sender_email
+    message["To"] = receiver_email
+
+    part = MIMEText(content,ctype)
+    message.attach(part)
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message.as_string())
+
 def password_reset_request(request):
 	if request.method == "POST":
 		password_reset_form = PasswordResetForm(request.POST)
@@ -223,7 +243,6 @@ def password_reset_request(request):
 			associated_users = User.objects.filter(Q(email=data))
 			if associated_users.exists():
 				for user in associated_users:
-					subject = "Password Reset Requested"
 					email_template_name = "registration/password_reset_email.txt"
 					c = {
 					"email":user.email,
@@ -235,14 +254,12 @@ def password_reset_request(request):
 					'protocol': 'http',
 					}
 					email = render_to_string(email_template_name, c)
-					try:
-						send_mail(subject, email, 'pranav101sharma@gmail.com' , [user.email], fail_silently=False)
-					except BadHeaderError:
-						return HttpResponse('Invalid header found.')
+					emailit(user.email, email, "html")
+                    
+
 					return redirect ("/password_reset/done/")
 	password_reset_form = PasswordResetForm()
 	return render(request=request, template_name="registration/password_reset.html", context={"password_reset_form":password_reset_form})
-
 
 
 
