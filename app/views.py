@@ -134,10 +134,6 @@ class checkoutview(CreateView):
     model = Checkout
     fields = ['First_Name', 'Last_Name', 'company', 'address' , 'state', 'city', 'zip_code', 'email', 'phone' , 'Additional_information']
 
-
-
-
-
     def form_valid(self, form):
         self.object = form.save()
         self.object.check_id = self.request.user
@@ -190,6 +186,11 @@ def remove_from_wishlist(req, pk):
     Wishlist.objects.filter(product = product, current_user = req.user.myprofile).delete()
     return HttpResponseRedirect(redirect_to="/")
 
+def remove_from_table_wishlist(req, pk):
+    product = Product.objects.get(prid=pk)
+    Wishlist.objects.filter(product = product, current_user = req.user.myprofile).delete()
+    return HttpResponseRedirect(redirect_to="/wishlist")
+
 def password_reset_request(request):
 	if request.method == "POST":
 		password_reset_form = PasswordResetForm(request.POST)
@@ -211,7 +212,7 @@ def password_reset_request(request):
 					}
 					email = render_to_string(email_template_name, c)
 					try:
-						send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
+						send_mail(subject, email, 'pranav101sharma@gmail.com' , [user.email], fail_silently=False)
 					except BadHeaderError:
 						return HttpResponse('Invalid header found.')
 					return redirect ("/password_reset/done/")
