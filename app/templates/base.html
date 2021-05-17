@@ -10,7 +10,7 @@
     <title>Looki - Beauty & Cosmetics eCommerce Bootstrap 5 Template</title>
    
 
-    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}"> />
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/ionicons.min.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/simple-line-icons.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/plugins/jquery-ui.min.css' %}">
@@ -20,12 +20,23 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}" />
     
 
-   
+<script>
+function change_image(image){
+
+var container = document.getElementById("main-image");
+
+container.src = image.src;
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+});
+</script>
 </head>
 
 <body>
-    
-
 <!-- offcanvas-overlay start -->
 <div class="offcanvas-overlay"></div>
 <!-- offcanvas-overlay end -->
@@ -38,11 +49,11 @@
     <div class="offcanvas-head mb-4">
       <nav class="offcanvas-top-nav">
         <ul class="d-flex flex-wrap">
-          <li class="my-2 mx-2">
+          {% comment %} <li class="my-2 mx-2">
             <a href="wishlist.html">
               <i class="icon-bag"></i> Wishlist <span>(0)</span></a
             >
-          </li>
+          </li> {% endcomment %}
           <li class="my-2 mx-2">
             <a href="wishlist.html">
               <i class="ion-android-favorite-outline"></i> Wishlist
@@ -50,15 +61,21 @@
             >
           </li>
           <li class="my-2 mx-2">
+                  <a href="wishlist.html">
+                      <i class="icon-bag"></i>Cart
+                      <span>(3)</span>
+                  </a>
+                </li>
+          {% comment %} <li class="my-2 mx-2">
             <a href="compare.html"
               ><i class="ion-ios-loop-strong"></i> Compare <span>(2)</span>
             </a>
-          </li>
-          <li class="my-2 mx-2">
+          </li> {% endcomment %}
+          {% comment %} <li class="my-2 mx-2">
             <a class="search search-toggle" href="javascript:void(0)">
               <i class="icon-magnifier"></i> Search</a
             >
-          </li>
+          </li> {% endcomment %}
         </ul>
       </nav>
     </div>
@@ -66,14 +83,14 @@
       <ul>
         <li>
           <a href="#"><span class="menu-text">Home</span></a>
-          <ul class="offcanvas-submenu">
+          {% comment %} <ul class="offcanvas-submenu">
             <li><a href="index.html">Home 1</a></li>
             <li><a href="index-2.html">Home 2</a></li>
-          </ul>
+          </ul> {% endcomment %}
         </li>
         <li>
-          <a href="#"><span class="menu-text">Shop</span></a>
-          <ul class="offcanvas-submenu">
+          {% comment %} <a href="#"><span class="menu-text">Shop</span></a> {% endcomment %}
+          {% comment %} <ul class="offcanvas-submenu">
             <li>
               <a href="#"><span class="menu-text">Shop Grid</span></a>
               <ul class="offcanvas-submenu">
@@ -93,9 +110,9 @@
                     >Shop Grid Right Sidebar</a
                   >
                 </li>
-              </ul>
+              </ul> {% endcomment %}
             </li>
-            <li>
+            {% comment %} <li>
               <a href="#"><span class="menu-text">Shop List</span></a>
               <ul class="offcanvas-submenu">
                 <li><a href="shop-grid-list.html">Shop List</a></li>
@@ -110,8 +127,8 @@
                   >
                 </li>
               </ul>
-            </li>
-            <li>
+            </li> {% endcomment %}
+            {% comment %} <li>
               <a href="#"><span class="menu-text">Shop Single</span></a>
               <ul class="offcanvas-submenu">
                 <li><a href="/single-product">Shop Single</a></li>
@@ -123,8 +140,8 @@
                 </li>
                 <li><a href="single-product-group.html">Shop Group</a></li>
               </ul>
-            </li>
-            <li>
+            </li> {% endcomment %}
+            {% comment %} <li>
               <a href="#"><span class="menu-text">other pages</span></a>
               <ul class="offcanvas-submenu">
                 <li><a href="about-us.html">About Page</a></li>
@@ -137,8 +154,8 @@
               </ul>
             </li>
           </ul>
-        </li>
-        <li>
+        </li> {% endcomment %}
+        {% comment %} <li>
           <a href="#"><span class="menu-text">Pages</span></a>
           <ul class="offcanvas-submenu">
             <li><a href="about-us.html">About Page</a></li>
@@ -149,12 +166,12 @@
             <li><a href="myaccount.html">Account Page</a></li>
             <li><a href="wishlist.html">Wishlist Page</a></li>
           </ul>
-        </li>
+        </li> {% endcomment %}
         <li>
           <a href="blog-grid-3-column.html"
             ><span class="menu-text">Blog</span></a
           >
-          <ul class="offcanvas-submenu">
+          {% comment %} <ul class="offcanvas-submenu">
             <li>
               <a href="#"><span class="menu-text">Blog Grid</span></a>
               <ul class="offcanvas-submenu">
@@ -174,9 +191,9 @@
                     >Blog Grid Right Sidebar</a
                   >
                 </li>
-              </ul>
+              </ul> {% endcomment %}
             </li>
-            <li>
+            {% comment %} <li>
               <a href="#"><span class="menu-text">Blog List</span></a>
               <ul class="offcanvas-submenu">
                 <li>
@@ -190,8 +207,8 @@
                   >
                 </li>
               </ul>
-            </li>
-            <li>
+            </li> {% endcomment %}
+            {% comment %} <li>
               <a href="#"><span class="menu-text">Blog Single</span></a>
               <ul class="offcanvas-submenu">
                 <li><a href="single-blog.html">Single Blog</a></li>
@@ -208,7 +225,7 @@
               </ul>
             </li>
           </ul>
-        </li>
+        </li> {% endcomment %}
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </nav>
@@ -235,7 +252,7 @@
 </div>
 <!-- offcanvas-mobile-menu end -->
 <!-- OffCanvas Wishlist Start -->
-<div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist theme1">
+{% comment %} <div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist theme1">
   <div class="inner">
     <div class="head d-flex flex-wrap justify-content-between">
       <span class="title">Wishlist</span>
@@ -291,11 +308,11 @@
       >view wishlist</a
     >
   </div>
-</div>
+</div> {% endcomment %}
 <!-- OffCanvas Wishlist End -->
 
 <!-- OffCanvas Cart Start -->
-<div id="offcanvas-cart" class="offcanvas offcanvas-cart theme1">
+{% comment %} <div id="offcanvas-cart" class="offcanvas offcanvas-cart theme1">
   <div class="inner">
     <div class="head d-flex flex-wrap justify-content-between">
       <span class="title">Cart</span>
@@ -361,10 +378,10 @@
     >
     <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
   </div>
-</div>
+</div> {% endcomment %}
 <!-- OffCanvas Cart End -->
 
-<!-- header start -->
+
 <header>
   <!-- header top start -->
   <div class="header-top theme1 bg-dark py-15">
@@ -400,11 +417,9 @@
             </div>
             <div class="media static-media ml-4 d-flex align-items-center">
               <div class="media-body">
-                <div class="phone">
-                  <a href="tel:(+123)4567890" class="text-white"
-                    ><i class="icon-call-out mr-1"></i> (+123)4567890</a
-                  >
-                </div>
+                {% comment %} <div class="phone">
+                  
+                </div> {% endcomment %}
               </div>
             </div>
           </div>
@@ -415,24 +430,24 @@
               class="d-flex justify-content-center justify-content-md-end align-items-center"
             >
               <li>
-                <a
+                {% comment %} <a
                   href="#"
                   id="dropdown1"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                   >Setting <i class="ion ion-ios-arrow-down"></i
-                ></a>
-                <ul
+                ></a> {% endcomment %}
+                {% comment %} <ul
                   class="topnav-submenu dropdown-menu"
                   aria-labelledby="dropdown1"
                 >
                   <li><a href="myaccount.html">My account</a></li>
                   <li><a href="checkout.html">Checkout</a></li>
                   <li><a href="login.html">Sign out</a></li>
-                </ul>
+                </ul> {% endcomment %}
               </li>
-              <li>
+              {% comment %} <li>
                 <a
                   href="#"
                   id="dropdown2"
@@ -448,36 +463,47 @@
                   <li class="active"><a href="#">EUR €</a></li>
                   <li><a href="#">USD $</a></li>
                 </ul>
-              </li>
+              </li> {% endcomment %}
               <li class="english">
+              {% if user.is_authenticated %}
                 <a
                   href="#"
                   id="dropdown3"
                   class="pr-0"
                   data-toggle="dropdown"
                   aria-haspopup="true"
-                  aria-expanded="false"
-                >
+                  aria-expanded="false"> 
+                  Welcome, {{user.username}}
+                  <i class="ion ion-ios-arrow-down"></i>
+                </a>
+                {% else %}
+                <a
+                  href="#"
+                  id="dropdown3"
+                  class="pr-0"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"> 
                   Account
                   <i class="ion ion-ios-arrow-down"></i>
                 </a>
+                {% endif %}
                 <ul
                   class="topnav-submenu dropdown-menu"
                   aria-labelledby="dropdown3"
                 >
                 {% if user.is_authenticated %}
                   <li class="active">
-                    <a href="/accounts/logout">Log Out </a
-                    >
+                    <a href="{% url 'app:logout' %}">Log Out </a>
+                    </li>
                 {% else %}
                 <li class="active">
-                  <a href="/accounts/login">Log In </a
-                  >
-                {% endif %}
+                  <a href="{% url 'app:login' %}">Log In </a>
                   </li>
                   <li>
-                    <a href="/accounts/register">Register</a>
+                    <a href="{% url 'app:register' %}">Register</a>
                   </li>
+                {% endif %}
                 </ul>
               </li>
             </ul>
@@ -493,7 +519,7 @@
       <div class="row align-items-center">
         <div class="col-6 col-lg-2 col-xl-2">
           <div class="logo">
-            <a href="index.html"
+            <a href="{% url 'app:index' %}"
               ><img src="{% static  'assets/img/lo' %}go/logo.png" alt="logo"
             /></a>
           </div>
@@ -501,19 +527,18 @@
         <div class="col-xl-8 col-lg-7 d-none d-lg-block">
           <ul class="main-menu d-flex justify-content-center">
             <li class="active ml-0">
-              <a href="index.html" class="pl-0"
-                >Home <i class="ion-ios-arrow-down"></i
-              ></a>
-              <ul class="sub-menu">
+              <a href="{% url 'app:index' %}" class="pl-0"
+                >Home </a>
+              {% comment %} <ul class="sub-menu">
                 <li><a href="index.html">Home 1</a></li>
                 <li><a href="index-2.html">Home 2</a></li>
-              </ul>
+              </ul> {% endcomment %}
             </li>
             <li class="position-static">
-              <a href="shop-grid-3-column.html"
+              {% comment %} <a href="shop-grid-3-column.html"
                 >Shop <i class="ion-ios-arrow-down"></i
-              ></a>
-              <ul class="mega-menu row">
+              ></a> {% endcomment %}
+              {% comment %} <ul class="mega-menu row">
                 <li class="col-3">
                   <ul>
                     <li class="mega-menu-title"><a href="#">Shop Grid</a></li>
@@ -585,9 +610,9 @@
                     ><img src="{% static 'assets/img/mega-menu/2.j' %}pg" alt="img"
                   /></a>
                 </li>
-              </ul>
+              </ul> {% endcomment %}
             </li>
-            <li>
+            {% comment %} <li>
               <a href="#">Pages <i class="ion-ios-arrow-down"></i></a>
               <ul class="sub-menu">
                 <li><a href="about-us.html">About Page</a></li>
@@ -598,12 +623,12 @@
                 <li><a href="myaccount.html">Account Page</a></li>
                 <li><a href="wishlist.html">Wishlist Page</a></li>
               </ul>
-            </li>
+            </li> {% endcomment %}
             <li>
-              <a href="blog-grid-3-column.html"
-                >Blog <i class="ion-ios-arrow-down"></i
+              <a href="#blogs"
+                >Blog </i
               ></a>
-              <ul class="sub-menu">
+              {% comment %} <ul class="sub-menu">
                 <li>
                   <a href="blog-grid-3-column.html">Blog Grid</a>
                   <ul class="sub-menu">
@@ -656,7 +681,7 @@
                     </li>
                   </ul>
                 </li>
-              </ul>
+              </ul> {% endcomment %}
             </li>
             <li><a href="contact.html">contact Us</a></li>
             <li><a href="/checkout">Checkout</a></li>
@@ -673,14 +698,14 @@
                     <i class="icon-magnifier"></i>
                   </a>
                 </li>
-                <li>
+                {% comment %} <li>
                   <a href="compare.html">
                     <span class="position-relative">
                       <i class="icon-shuffle"></i>
                       <span class="badge cbdg1">1</span>
                     </span>
                   </a>
-                </li>
+                </li> {% endcomment %}
                 <li>
                   <a class="offcanvas-toggle" href="#offcanvas-wishlist">
                     <span class="position-relative">
@@ -736,13 +761,12 @@
         <div class="col-12 col-sm-6 col-lg-4 mb-30">
           <div class="footer-widget mx-w-400">
             <div class="footer-logo mb-25">
-              <a href="index.html">
+              <a href="{% url 'app:index' %}">
                 <img src="{% static 'assets/img/logo/logo.png' %}" alt="footer logo" />
               </a>
             </div>
             <p class="text mb-30">
-              We are a team of professional designers and developers that create
-              high quality wordpress plugins, Html, React Template.
+              Stylox is an exciting place for the whole family to shop where you can find the best quality of products.
             </p>
 
             <div class="social-network">
@@ -781,9 +805,9 @@
             <!-- footer-menu start -->
             <ul class="footer-menu">
               <li><a href="about-us.html">About us</a></li>
-              <li><a href="#">payment</a></li>
+              {% comment %} <li><a href="#">payment</a></li> {% endcomment %}
               <li><a href="contact.html">Contact us</a></li>
-              <li><a href="#">Stores</a></li>
+              {% comment %} <li><a href="#">Stores</a></li> {% endcomment %}
             </ul>
             <!-- footer-menu end -->
           </div>
@@ -797,10 +821,10 @@
             </div>
             <!-- footer-menu start -->
             <ul class="footer-menu">
-              <li><a href="#">New products</a></li>
-              <li><a href="#">Best sales</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="myaccount.html">My account</a></li>
+              <li><a href="#new_arr">New products</a></li>
+              <li><a href="#all">Best sales</a></li>
+              <li><a href="{% url 'app:login' %}">Login</a></li>
+              <li><a href="{% url 'app:register' %}">Register</a></li>
             </ul>
             <!-- footer-menu end -->
           </div>
@@ -813,26 +837,25 @@
               </div>
             </div>
             <p class="text mb-20">
-              Subcribe to the TheFace mailing list to receive update on mnew
-              arrivals, special offers and other discount information.
+              Subcribe to the TheFace mailing list to receive update on new
+              arrivals, special offers and other discount information related to products.
             </p>
             <div class="nletter-form mb-35">
               <form
-                class="form-inline position-relative"
-                action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef"
-                target="_blank"
-                method="post"
+                class="form-inline position-relative" id="subs_form"
               >
                 <input
                   class="form-control"
-                  type="text"
+                  type="email"
                   placeholder="Your email address"
+                  id="subscriber"
+                  required
                 />
                 <button
-                  class="btn news-letter-btn text-capitalize"
-                  type="submit"
+                  class="btn news-letter-btn text-capitalize" 
+                  type="submit" onclick="return subscribe()"
                 >
-                  Sign up
+                 Subscribe
                 </button>
               </form>
             </div>
@@ -849,7 +872,7 @@
         <div class="col-12 col-md-6 col-xl-4 order-last order-md-first">
           <div class="text-md-left text-center mt-3 mt-md-0">
             <p>
-              Copyright &copy; maxifyy
+              Copyright &copy; Stylox
               All Rights Reserved
             </p>
           </div>
@@ -1161,13 +1184,30 @@
   <button class="close"><i class="ion-android-close"></i></button>
 </div>
 <!-- search-box and overlay end -->
-
+<script>
+function subscribe(){
+  
+  x=document.getElementById("subscriber").value;
+  
+  $.ajax({
+    type:'POST',
+    url:'',
+    data:{
+    'action':'subs',
+    'email':x,
+    csrfmiddlewaretoken: '{{ csrf_token }}'
+    }
+    
+  })
+  return false;
+}
+</script>
 
 
     <!--*********************** 
         all js files
-     ***********************-->
-
+     *****
+     
     <!--****************************************************** 
         jquery,modernizr ,poppe,bootstrap,plugins and main js
      ******************************************************-->

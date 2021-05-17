@@ -2,6 +2,9 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
+
 # Create your models here.
 
 class MyProfile(models.Model):
@@ -19,10 +22,16 @@ class Product(models.Model):
     original_price = models.IntegerField(null=False)
     discount = models.IntegerField(null=False) 
     Current_price = models.IntegerField(null=False)
-    rating=models.IntegerField(null=False,default=0)
-    Product_display =models.CharField(max_length=256, choices=[('All', 'All'), ('New_Arrival', 'New_Arrival'),('On_Sale','On_Sale'),('Upcoming_product', 'Upcoming_product')],default="")
+    main_class=models.CharField(max_length=256, choices=[('Men', 'Men'), ('Women', 'Women'),('Both','Both')], default="Men")
+    category=models.CharField(max_length=256, choices=[('Jeans', 'Jeans'), ('T-shirts', 'T-shirts'),('Chino','Chino'),
+    ('Pants','Pants'),('Trousers','Trousers'),('Shirts','Shirts'),('Winters','Winters'),('Shorts','Shorts'),
+    ('Socks','Socks'),('Belt','Belt'),('Wallet','Wallet'),('Shoes','Shoes'),('Mask','Mask'),('other_accessories','other_accessories')],default="other_accessories")
+    Product_display =models.CharField(max_length=256, choices=[('All', 'All'), ('New_Arrival', 'New_Arrival'),('On_Sale','On_Sale'),('Upcoming_product', 'Upcoming_product')],default="All")
+    is_available =models.CharField(max_length=256, choices=[('in_stock', 'in_stock'), ('out_of_stock', 'out_of_stock'),('currently_unavailable','currently_unavailable')],default="currently_unavailable")
     Intial_quantity = models.IntegerField(default=0)
-    size_available = models.CharField(max_length=256,default="")
+    size_available = models.CharField(max_length=256, help_text = mark_safe(_(
+            '<small style="color:red;font-size:10px;">Please enter multiple size seperated by comma for ex: S,XL,XXL,XXXL</small>'
+        )),default="")
     Description = models.TextField()
     image = models.ImageField(upload_to="image/",default='')
     image2 = models.ImageField(upload_to="image/",default='')
@@ -70,3 +79,9 @@ class Wishlist(models.Model):
     def __str__(self):
         return "%s" % self.current_user
 
+class Subscribe(models.Model):
+    id= models.AutoField(primary_key=True)
+    email = models.CharField(max_length=90)
+    our_user=models.BooleanField(default=False)
+    def __str__(self):
+        return str(self.id)

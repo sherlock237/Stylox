@@ -5,11 +5,12 @@ from . import views
 from django.conf.urls.static import static
 from django.urls.conf import include
 from django.contrib.auth.decorators import login_required
+app_name="app"
 
 urlpatterns = [
-   
+    
     path('',views.index, name="index"),
-    path('accounts/logout/', views.logout),
+    path('accounts/logout/', views.logout,name='logout'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/sign_up/', views.SignUpView.as_view(), name='sign_up'),
     path('login', views.loginpage, name="login"),

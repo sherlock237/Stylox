@@ -1,18 +1,33 @@
 from app.models import Banner
 from django.shortcuts import render
-from .models import Banner,Product, Checkout, Wishlist, MyProfile
+from .models import Banner,Product, Checkout, Wishlist, MyProfile,Subscribe
 from django.views.generic.edit import CreateView
 from django.http.response import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.views import generic
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 # Create your views here.
 
+def demo(email):
+    if(User.objects.filter(email=email)):
+        sub=Subscribe(email=email,our_user=True)
+        sub.save()
+    else:
+        sub=Subscribe(email=email,our_user=False)
+        sub.save() 
+
 
 def index(request):
+    if request.method =='POST' and request.POST['action']=='subs':
+        email=request.POST.get('email')
+        if(Subscribe.objects.filter(email=email)):
+            messages.error(request,'Already subscribed')
+        else:
+            demo(email)
     banner=[]
     b=list(Banner.objects.all())
     p=Product.objects.filter(Product_display='All')
@@ -38,11 +53,16 @@ def loginpage(request):
 def register(request):
     return render(request, "register.html")
 
-def singleproduct(request,prid):
+def singleproduct(request,prid): 
     prd=Product.objects.filter(prid=prid)
-    
+    size=0
+    for i in prd:
+        size=i.size_available
+        break
+    size=size.split(',')
     context={
-        'prd':prd
+        'prd':prd,
+        'size':size
     }
     return render(request, 'single-product.html',context)
 
