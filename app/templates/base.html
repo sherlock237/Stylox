@@ -1193,6 +1193,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   <button class="close"><i class="ion-android-close"></i></button>
 </div>
 <!-- search-box and overlay end -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
 <script>
 function subscribe(){
   
@@ -1230,6 +1232,22 @@ function subscribe(){
   })
   return false;
 }
+$(".add_to_cart_btn").click(function(){
+ var x=this.id;
+ console.log(x)
+ $.ajax({
+   type:'POST',
+   url:'',
+   data:{
+     'action':'add_cart',
+      'data':x,
+      csrfmiddlewaretoken: '{{ csrf_token }}'
+   }
+
+ })
+})
+
+
 </script>
 
 

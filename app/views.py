@@ -1,7 +1,7 @@
 from django.views.generic.base import TemplateView
 from app.models import Banner
 from django.shortcuts import render, redirect
-from .models import Banner,Product, Checkout, Wishlist, MyProfile,Subscribe, Contact
+from .models import Banner,Product, Checkout, Wishlist, MyProfile,Subscribe, Contact,Cart
 from django.views.generic.edit import CreateView
 from django.http.response import HttpResponseRedirect
 from django.http import JsonResponse
@@ -100,6 +100,14 @@ class IndexView(TemplateView):
                     msg='Unable to Subscribe'
             context={'msg':msg}
             return JsonResponse(context)
+        if self.request.method =='POST' and self.request.POST['action']=='add_cart':
+            prd_id=self.request.POST.get('data')
+            product = Product.objects.get(prid=prd_id)
+            prd_save=Cart(user_id=self.request.user,product_id=product)
+            prd_save.save()
+            print("heloooooo")
+            return redirect(".")
+
         
                 
 def loginpage(request):

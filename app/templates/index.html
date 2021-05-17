@@ -396,9 +396,9 @@
                           >
                             <span class="product-price">&#8360; {{i.Current_price}}</span>
                             <button
-                              class="pro-btn"
-                              data-toggle="modal"
-                              data-target="#add-to-cart"
+                              class="pro-btn add_to_cart_btn" id="{{i.prid}}"
+                              {% comment %} data-toggle="modal"
+                              data-target="#add-to-cart" {% endcomment %}
                             >
                               <i class="icon-basket"></i>
                             </button>

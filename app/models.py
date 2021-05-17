@@ -94,3 +94,14 @@ class Subscribe(models.Model):
     our_user=models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)
+
+class Cart(models.Model):
+    user_id=models.ForeignKey(User, on_delete=models.CASCADE)
+    product_id = models.ForeignKey(to=Product,on_delete=models.CASCADE)
+    added_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return str(self.id)
+
+
+
+

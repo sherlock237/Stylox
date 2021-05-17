@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product,Banner,Checkout,Wishlist,Subscribe
+from .models import Product,Banner,Checkout,Wishlist,Subscribe,Cart
  
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
@@ -12,12 +12,15 @@ class WishlistAdmin(admin.ModelAdmin):
     list_display = ['current_user', 'added_date', 'product']
 class SubscribeAdmin(admin.ModelAdmin):
     list_display = ['id', 'email','our_user']
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['user_id', 'product_id','added_date']
 
 admin.site.register(Banner,BannerAdmin)
 admin.site.register(Product,ProductAdmin)
 admin.site.register(Checkout,CheckoutAdmin)
 admin.site.register(Wishlist,WishlistAdmin)
 admin.site.register(Subscribe,SubscribeAdmin)
+admin.site.register(Cart,CartAdmin)
 
 
 
