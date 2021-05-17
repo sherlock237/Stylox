@@ -8,16 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 app_name="app"
 urlpatterns = [
-    path('accounts/logout/', views.logout,name='logout'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/sign_up/', views.SignUpView.as_view(), name='sign_up'),
-    path('login', views.loginpage, name="login"),
+   
     path('<int:prid>', views.singleproduct, name="single-product"),
-    path('checkout',views.checkout,name='checkout'),
-    path('register', views.register, name="register"),
-    path('wishlist/<int:pk>', views.add_to_wishlist),
-
-
     path('',views.IndexView.as_view(), name="index"),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="registration/password_reset_confirm.html"), name='password_reset_confirm'),

@@ -496,14 +496,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 >
                 {% if user.is_authenticated %}
                   <li class="active">
-                    <a href="{% url 'app:logout' %}">Log Out </a>
+                    <a href="/accounts/logout">Log Out </a>
                     </li>
                 {% else %}
                 <li class="active">
-                  <a href="{% url 'app:login' %}">Log In </a>
+                  <a href="/accounts/login">Log In </a>
                   </li>
                   <li>
-                    <a href="{% url 'app:register' %}">Register</a>
+                    <a href="/accounts/register">Register</a>
                   </li>
                 {% endif %}
                 </ul>
@@ -812,7 +812,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             <ul class="footer-menu">
               <li><a href="about-us.html">About us</a></li>
               {% comment %} <li><a href="#">payment</a></li> {% endcomment %}
-              <li><a href="contact.html">Contact us</a></li>
+              <li><a href="/contact">Contact us</a></li>
               {% comment %} <li><a href="#">Stores</a></li> {% endcomment %}
             </ul>
             <!-- footer-menu end -->
@@ -829,8 +829,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
             <ul class="footer-menu">
               <li><a href="#new_arr">New products</a></li>
               <li><a href="#all">Best sales</a></li>
-              <li><a href="{% url 'app:login' %}">Login</a></li>
-              <li><a href="{% url 'app:register' %}">Register</a></li>
+              <li><a href="/accounts/login">Login</a></li>
+              <li><a href="/accounts/register">Register</a></li>
             </ul>
             <!-- footer-menu end -->
           </div>
