@@ -21,8 +21,8 @@ urlpatterns = [
     path("password_reset", views.password_reset_request, name="password_reset"),
     path('add_wishlist/<int:pk>', views.add_to_wishlist),
     path('remove_wishlist/<int:pk>', views.remove_from_wishlist),
-    path('wishlist/', views.WishlistView.as_view()),
+    path('wishlist/', views.WishlistView.as_view(), name="wishlist"),
     path('single-product', views.singleproduct),
     path('checkout', login_required(views.checkoutview.as_view(success_url= ''))),
-    path('contact', views.contact)
+    path('contact', views.contact,name='contact')
 ]
