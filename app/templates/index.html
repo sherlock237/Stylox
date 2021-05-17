@@ -2,7 +2,6 @@
 {% block content %}
 {% load static %}
 
-<!-- main slider start -->
 <section class="bg-light">
   <div class="main-slider dots-style theme1">
     <div class="slider-item bg-img" style="background-image: url('app/{{banner.0}}')">
@@ -317,8 +316,25 @@
                         </a>
                         <!-- product links -->
                         <ul class="actions d-flex justify-content-center">
+                          {% for j in mywish_list %}
+                          {% if i == j %}
+                          {% if j.wished %}
+                          <li >
+                            <a class="action" href="/remove_wishlist/{{i}}" style="background: #5a5ac9; color: #ffffff;">
+                              <span
+                                
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="remove from wishlist"
+                                class="icon-heart"
+                              >
+                              </span>
+                            </a>
+                          </li>
+                          
+                          {% else %}
                           <li>
-                            <a class="action" href="/wishlist/{{i}}">
+                            <a class="action" href="/add_wishlist/{{i}}">
                               <span
                                 data-toggle="tooltip"
                                 data-placement="bottom"
@@ -417,8 +433,25 @@
                         </a>
                         <!-- product links -->
                         <ul class="actions d-flex justify-content-center">
+                          {% for j in mywish_list %}
+                          {% if i == j %}
+                          {% if j.wished %}
+                          <li >
+                            <a class="action" href="/remove_wishlist/{{i}}" style="background: #5a5ac9; color: #ffffff;">
+                              <span
+                                
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="remove from wishlist"
+                                class="icon-heart"
+                              >
+                              </span>
+                            </a>
+                          </li>
+                          
+                          {% else %}
                           <li>
-                            <a class="action" href="/wishlist/{{i}}">
+                            <a class="action" href="/add_wishlist/{{i}}">
                               <span
                                 data-toggle="tooltip"
                                 data-placement="bottom"
@@ -517,8 +550,25 @@
                         </a>
                         <!-- product links -->
                         <ul class="actions d-flex justify-content-center">
+                          {% for j in mywish_list %}
+                          {% if i == j %}
+                          {% if j.wished %}
+                          <li >
+                            <a class="action" href="/remove_wishlist/{{i}}" style="background: #5a5ac9; color: #ffffff;">
+                              <span
+                                
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="remove from wishlist"
+                                class="icon-heart"
+                              >
+                              </span>
+                            </a>
+                          </li>
+                          
+                          {% else %}
                           <li>
-                            <a class="action" href="/wishlist/{{i}}">
+                            <a class="action" href="/add_wishlist/{{i}}">
                               <span
                                 data-toggle="tooltip"
                                 data-placement="bottom"
@@ -666,8 +716,25 @@
                     </a>
                     <!-- product links -->
                     <ul class="actions d-flex justify-content-center">
+                      {% for j in mywish_list %}
+                      {% if i == j %}
+                      {% if j.wished %}
+                      <li >
+                        <a class="action" href="/remove_wishlist/{{i}}" style="background: #5a5ac9; color: #ffffff;">
+                          <span
+                            
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="remove from wishlist"
+                            class="icon-heart"
+                          >
+                          </span>
+                        </a>
+                      </li>
+                      
+                      {% else %}
                       <li>
-                        <a class="action" href="/wishlist/{{i}}">
+                        <a class="action" href="/add_wishlist/{{i}}">
                           <span
                             data-toggle="tooltip"
                             data-placement="bottom"
@@ -677,6 +744,10 @@
                           </span>
                         </a>
                       </li>
+                      {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                     
                       <li>
                         <a
                           class="action"

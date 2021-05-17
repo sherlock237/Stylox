@@ -53,8 +53,8 @@ class Checkout(models.Model):
     check_id = models.ForeignKey(User, on_delete=models.CASCADE, null =True)
     Product_id = models.CharField(max_length=9000)
     items = models.CharField(max_length=5000)
-    fname = models.CharField(max_length=90, default="")
-    lname = models.CharField(max_length=90, default="")
+    First_Name = models.CharField(max_length=90, default="")
+    Last_Name = models.CharField(max_length=90, default="")
     amount = models.IntegerField(default=0)
     email = models.CharField(max_length=90)
     address = models.CharField(max_length=90)
@@ -62,7 +62,7 @@ class Checkout(models.Model):
     state = models.CharField(max_length=90)
     zip_code = models.CharField(max_length=90)
     phone = models.CharField(max_length=90,default="")
-    add_info = models.CharField(max_length=1000, default="")
+    Additional_information = models.CharField(max_length=1000, default="")
     company = models.CharField(max_length=200, default="")
 
     def get_absolute_url(self):

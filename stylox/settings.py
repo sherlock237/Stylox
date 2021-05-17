@@ -72,6 +72,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stylox.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -122,8 +124,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_ACTIVATION_DAYS=3
 
 EMAIL_HOST= 'smtp.gmail.com'
-EMAIL_HOST_USER= ''
-EMAIL_HOST_PASSWORD= ''
+EMAIL_HOST_USER= 'pranav101sharma@gmail.com'
+EMAIL_HOST_PASSWORD= 'raktveer101'
 EMAIL_PORT= 587
 EMAIL_USE_TLS= True  
 
