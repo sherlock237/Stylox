@@ -8,7 +8,7 @@ class ProductAdmin(admin.ModelAdmin):
 class BannerAdmin(admin.ModelAdmin):
     list_display = ['banid','image1', 'image2','image3']
 class CheckoutAdmin(admin.ModelAdmin):
-    list_display = ['check_id','Product_id', 'items','fname', 'lname','email']
+    list_display = ['check_id','Product_id', 'items','First_Name', 'Last_Name','email']
 class WishlistAdmin(admin.ModelAdmin):
     list_display = ['current_user', 'added_date', 'product']
 
