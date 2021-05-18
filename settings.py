@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-     'app', 
+    'app', 
     'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -133,6 +133,8 @@ EMAIL_PORT= 587
 EMAIL_USE_TLS= True  
 
 LOGIN_REDIRECT_URL = "/"
+
+LOGOUT_REDIRECT_URL = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
