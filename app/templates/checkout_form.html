@@ -207,6 +207,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-lg-5 mt-4 mt-lg-0">
         <div class="your-order-area">
           <h3 class="title">Your order</h3>
@@ -220,14 +221,25 @@
               </div>
               <div class="your-order-middle">
                 <ul>
+                  {% for c in cart_list %}
+  
+                  {% for p in product %}
+                  {% if c.product_id == p.prid %}
+
+   
+
                   <li>
-                    <span class="order-middle-left">Product Name X 1</span>
-                    <span class="order-price">$329 </span>
+                    <span class="order-middle-left"> {{ p.Product_Name }} X {{ c.total }}</span>
+                    <span class="order-price"> {% widthratio  p.Current_price 1 c.total  %} </span>
                   </li>
-                  <li>
-                    <span class="order-middle-left">Product Name X 1</span>
-                    <span class="order-price">$329 </span>
-                  </li>
+
+                  {% endif %}
+
+                  {% endfor %}
+  
+                
+                  {% endfor %}
+
                 </ul>
               </div>
               <div class="your-order-bottom">
@@ -239,7 +251,7 @@
               <div class="your-order-total">
                 <ul>
                   <li class="order-total">Total</li>
-                  <li>$329</li>
+                  Rs. {{ total }}
                 </ul>
               </div>
             </div>

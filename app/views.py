@@ -22,6 +22,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from django.db.models import Count
 import re
 import smtplib, ssl
 from email.mime.text import MIMEText
@@ -46,24 +47,32 @@ def demo(self,email):
 
 
 
-@method_decorator(login_required, name='dispatch')
+
 class IndexView(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         context = TemplateView.get_context_data(self, **kwargs)  
         productList = Product.objects.all()   
-        c_user, created = MyProfile.objects.get_or_create(user=self.request.user)
-        
-        for p11 in productList:  
+
+        if not self.request.user.is_authenticated:
+            for p11 in productList:  
             #print(p11)
-            p11.wished = False
-            ob = Wishlist.objects.filter(product = p11,current_user=c_user)  
-            #print("ob", ob)
-            if ob: 
-                p11.wished = True        
-            obList = Wishlist.objects.filter(current_user = self.request.user.myprofile)
-            p11.wishedno = obList.count()
+                p11.wished = False
+                p11.wishedno = 0
+
+        else:
+            c_user, created = MyProfile.objects.get_or_create(user=self.request.user)
+            
+            for p11 in productList:  
+                #print(p11)
+                p11.wished = False
+                ob = Wishlist.objects.filter(product = p11,current_user=c_user)  
+                #print("ob", ob)
+                if ob: 
+                    p11.wished = True        
+                obList = Wishlist.objects.filter(current_user = self.request.user.myprofile)
+                p11.wishedno = obList.count()
 
         banner=[]
         b=list(Banner.objects.all())
@@ -268,6 +277,19 @@ def password_reset_request(request):
 
 @login_required
 def checkout(request):
+    model = Cart
+
+
+    cart = Cart.objects.filter(user_id = request.user).values('product_id').annotate(total=Count('product_id')).order_by()
+    product = Product.objects.all()
+
+    total = 0
+
+    for ci in cart:
+        for p in product:
+            if( p.prid == ci['product_id']):
+                total += ci['total']*p.Current_price
+
     if request.method == 'POST':
         msg = request.POST.get("message")
         fname = request.POST.get("fname")
@@ -297,8 +319,8 @@ def checkout(request):
 
         message= "We've saved your billing address"
 
-        return render(request, "checkout_form.html", {'mess': message})
-    return render(request, "checkout_form.html")
+        return render(request, "checkout_form.html", {'mess': message, 'cart_list': cart, 'product': product, 'total': total})
+    return render(request, "checkout_form.html", {'cart_list': cart, 'product': product,  'total': total})
     
 
 
