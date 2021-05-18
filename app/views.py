@@ -1,3 +1,4 @@
+from email import message
 from django.views.generic.base import TemplateView
 from app.models import Banner
 from django.shortcuts import render, redirect
@@ -133,6 +134,8 @@ def contact(request):
         contact.save()
         stri = "Thank you for contacting us. We'll reach you soon."
         return render(request, 'contact.html', {'message': stri})
+
+
     return render(request, 'contact.html')
 
 def register(request):
@@ -152,21 +155,20 @@ def singleproduct(request,prid):
     return render(request, 'single-product.html',context)
 
 
-def checkout(request):
-    return render(request, 'checkout.html')
 
-@method_decorator(login_required, name='dispatch')
-class checkoutview(CreateView):
-    template_name = 'checkout_form.html'
-    model = Checkout
-    fields = ['First_Name', 'Last_Name', 'company', 'address' , 'state', 'city', 'zip_code', 'email', 'phone' , 'Additional_information']
 
-    def form_valid(self, form):
-        self.object = form.save()
-        self.object.check_id = self.request.user
-        self.object.product_id = self.request.user
-        self.object.save()
-        return HttpResponseRedirect(self.get_success_url())
+# @method_decorator(login_required, name='dispatch')
+# class checkoutview(CreateView):
+#     template_name = 'checkout_form.html'
+#     model = Checkout
+#     fields = ['First_Name', 'Last_Name', 'company', 'address' , 'state', 'city', 'zip_code', 'email', 'phone' , 'Additional_information']
+
+#     def form_valid(self, form):
+#         self.object = form.save()
+#         self.object.check_id = self.request.user
+#         self.object.product_id = self.request.user
+#         self.object.save()
+#         return HttpResponseRedirect(self.get_success_url())
 
 
 class SignUpView(generic.CreateView):
@@ -264,8 +266,40 @@ def password_reset_request(request):
 
 
 
+@login_required
+def checkout(request):
+    if request.method == 'POST':
+        msg = request.POST.get("message")
+        fname = request.POST.get("fname")
+        lname = request.POST.get("lname")
+        cname = request.POST.get("cname")
+        email = request.POST.get("email")
+        address = request.POST.get("address")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        zip = request.POST.get("zip")
+        phone = request.POST.get("phone")
 
+        billing = Checkout(
+            First_Name = fname,
+            Last_Name = lname,
+            company = cname,
+            address = address,
+            city = city,
+            state = state,
+            zip_code = zip,
+            phone = phone, 
+            email = email,
+            Additional_information = msg
+        )
 
+        billing.save()
+
+        message= "We've saved your billing address"
+
+        return render(request, "checkout_form.html", {'mess': message})
+    return render(request, "checkout_form.html")
+    
 
 
 # @login_required()
