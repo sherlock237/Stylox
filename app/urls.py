@@ -16,6 +16,7 @@ urlpatterns = [
     path('remove_table_wishlist/<int:pk>', views.remove_from_table_wishlist),
     path('wishlist/', views.WishlistView.as_view(),name='wishlist'),
     path('single-product', views.singleproduct),
-    path('checkout', login_required(views.checkoutview.as_view(success_url= ''))),
+    path('checkout', views.checkout),
+    #path('checkout', login_required(views.checkoutview.as_view(success_url= ''))),
     path('contact', views.contact,name='contact')
 ]
