@@ -101,11 +101,18 @@ class IndexView(TemplateView):
             context={'msg':msg}
             return JsonResponse(context)
         if self.request.method =='POST' and self.request.POST['action']=='add_cart':
+            listt=[]
             prd_id=self.request.POST.get('data')
-            product = Product.objects.get(prid=prd_id)
-            prd_save=Cart(user_id=self.request.user,product_id=product)
-            prd_save.save()
-            print("heloooooo")
+            if(Cart.objects.filter(product_id=prd_id,user_id=self.request.user)):
+                Cart.objects.filter(product_id=prd_id,user_id=self.request.user).delete()
+            else:
+                product = Product.objects.get(prid=prd_id)
+                prd_save=Cart(user_id=self.request.user,product_id=product)
+                prd_save.save()
+            cart=Cart.objects.filter(product_id=prd_id,user_id=self.request.user)
+            for i in cart:
+                listt.append(i.product_id)
+            print(listt)
             return redirect(".")
 
         
