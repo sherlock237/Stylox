@@ -65,16 +65,33 @@
                   {{form | crispy}}<br>
 
                   <input type="submit" />
-                  <button class="btn btn-dark btn--md" type="submit"> 
-                  <a href="/accounts/register" >Register</a> &nbsp;
-                  </button>
 
-                  <button class="btn btn-dark btn--md" type="submit"> 
-                    <span>
-                    <a  href="/password_reset">Reset Password</a>
-                    </span>
-                    </button>
+                  <div style=" justify-content: center; text-align: center; display: blocl;">
+                    <button class="btn btn-dark btn--md" type="submit"> 
+                      <a href="/accounts/register" onmouseover="this.style.color='white';" >Register</a> &nbsp;
+                      </button>
+    
+                      <button class="btn btn-dark btn--md" type="submit"> 
+                        <span>
+                          
+                        <a href="/password_reset" onmouseover="this.style.color='white';">Reset Password </a>
+                        </span>
+                        </button>
 
+                        
+    
+                        
+    
+                        <button class="btn btn-dark btn--md" type="submit" style="background-color: #DB4437; margin-top: 10px;"> 
+                          <span>
+                            <img src = "{% static 'assets/img/logo/google.png' %}"/ width="5%" height="5%">
+                            <a href="{% url 'social:begin' 'google-oauth2' %}" onmouseover="this.style.color='white';">Google+ Sign In</a>
+                          </span>
+                        </button>
+    
+
+                  </div>
+                  
                   </form>
               
           
