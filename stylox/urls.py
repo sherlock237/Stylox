@@ -19,10 +19,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from app import views
+from django.conf.urls import url
 
 
 urlpatterns = [
+    url('', include('social_django.urls', namespace='social')),
     path('admin/', admin.site.urls),
+    path('accounts/logout_', auth_views.LogoutView.as_view(next_page = "/")), 
     path('accounts/', include('registration.backends.simple.urls')),  
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="registration/password_reset_confirm.html"), name='password_reset_confirm'),

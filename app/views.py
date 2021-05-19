@@ -1,3 +1,4 @@
+from email import message
 from django.views.generic.base import TemplateView
 from app.models import Banner
 from django.shortcuts import render, redirect
@@ -22,6 +23,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.core import serializers
+from django.db.models import Count
 import re
 import smtplib, ssl
 from email.mime.text import MIMEText
@@ -47,24 +49,32 @@ def demo(self,email):
 
 
 
-@method_decorator(login_required, name='dispatch')
+
 class IndexView(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         context = TemplateView.get_context_data(self, **kwargs)  
         productList = Product.objects.all()   
-        c_user, created = MyProfile.objects.get_or_create(user=self.request.user)
-        
-        for p11 in productList:  
+
+        if not self.request.user.is_authenticated:
+            for p11 in productList:  
             #print(p11)
-            p11.wished = False
-            ob = Wishlist.objects.filter(product = p11,current_user=c_user)  
-            #print("ob", ob)
-            if ob: 
-                p11.wished = True        
-            obList = Wishlist.objects.filter(current_user = self.request.user.myprofile)
-            p11.wishedno = obList.count()
+                p11.wished = False
+                p11.wishedno = 0
+
+        else:
+            c_user, created = MyProfile.objects.get_or_create(user=self.request.user)
+            
+            for p11 in productList:  
+                #print(p11)
+                p11.wished = False
+                ob = Wishlist.objects.filter(product = p11,current_user=c_user)  
+                #print("ob", ob)
+                if ob: 
+                    p11.wished = True        
+                obList = Wishlist.objects.filter(current_user = self.request.user.myprofile)
+                p11.wishedno = obList.count()
 
         banner=[]
         b=list(Banner.objects.all())
@@ -246,6 +256,8 @@ def contact(request):
         contact.save()
         stri = "Thank you for contacting us. We'll reach you soon."
         return render(request, 'contact.html', {'message': stri})
+
+
     return render(request, 'contact.html')
 
 def register(request):
@@ -306,21 +318,20 @@ def singleproduct(request,prid):
     return render(request, 'single-product.html',context)
 
 
-def checkout(request):
-    return render(request, 'checkout.html')
 
-@method_decorator(login_required, name='dispatch')
-class checkoutview(CreateView):
-    template_name = 'checkout_form.html'
-    model = Checkout
-    fields = ['First_Name', 'Last_Name', 'company', 'address' , 'state', 'city', 'zip_code', 'email', 'phone' , 'Additional_information']
 
-    def form_valid(self, form):
-        self.object = form.save()
-        self.object.check_id = self.request.user
-        self.object.product_id = self.request.user
-        self.object.save()
-        return HttpResponseRedirect(self.get_success_url())
+# @method_decorator(login_required, name='dispatch')
+# class checkoutview(CreateView):
+#     template_name = 'checkout_form.html'
+#     model = Checkout
+#     fields = ['First_Name', 'Last_Name', 'company', 'address' , 'state', 'city', 'zip_code', 'email', 'phone' , 'Additional_information']
+
+#     def form_valid(self, form):
+#         self.object = form.save()
+#         self.object.check_id = self.request.user
+#         self.object.product_id = self.request.user
+#         self.object.save()
+#         return HttpResponseRedirect(self.get_success_url())
 
 
 class SignUpView(generic.CreateView):
@@ -452,8 +463,53 @@ def password_reset_request(request):
 
 
 
+@login_required
+def checkout(request):
+    model = Cart
 
 
+    cart = Cart.objects.filter(user_id = request.user).values('product_id').annotate(total=Count('product_id')).order_by()
+    product = Product.objects.all()
+
+    total = 0
+
+    for ci in cart:
+        for p in product:
+            if( p.prid == ci['product_id']):
+                total += ci['total']*p.Current_price
+
+    if request.method == 'POST':
+        msg = request.POST.get("message")
+        fname = request.POST.get("fname")
+        lname = request.POST.get("lname")
+        cname = request.POST.get("cname")
+        email = request.POST.get("email")
+        address = request.POST.get("address")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        zip = request.POST.get("zip")
+        phone = request.POST.get("phone")
+
+        billing = Checkout(
+            First_Name = fname,
+            Last_Name = lname,
+            company = cname,
+            address = address,
+            city = city,
+            state = state,
+            zip_code = zip,
+            phone = phone, 
+            email = email,
+            Additional_information = msg
+        )
+
+        billing.save()
+
+        message= "We've saved your billing address"
+
+        return render(request, "checkout_form.html", {'mess': message, 'cart_list': cart, 'product': product, 'total': total})
+    return render(request, "checkout_form.html", {'cart_list': cart, 'product': product,  'total': total})
+    
 
 
 

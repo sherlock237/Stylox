@@ -31,9 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-     'app', 
+    'app', 
+    'social_django',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
     'django.contrib.admin',
     'django.contrib.contenttypes',
+    'django.contrib.sites',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -41,6 +48,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'registration'
 ]
+
+SITE_ID = 1
+
+
 
 
 
@@ -57,10 +68,11 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'stylox.urls'
 
 TEMPLATES = [
-    {
+  {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
-       
+        'DIRS': [
+            os.path.normpath(os.path.join(BASE_DIR, 'templates')),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,10 +80,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1071253547374-gvjtei66vihqq323dlp1qgeidismt9p6.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ul1jWGucZXyo0y4iA-fGUrHk'
 
 WSGI_APPLICATION = 'stylox.wsgi.application'
 
@@ -107,6 +125,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.yahoo.YahooOpenId',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -127,8 +156,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_ACTIVATION_DAYS=3
 
 EMAIL_HOST= 'smtp.gmail.com'
-EMAIL_HOST_USER= 'pranav101sharma@gmail.com'
-EMAIL_HOST_PASSWORD= 'raktveer101'
+EMAIL_HOST_USER= ''
+EMAIL_HOST_PASSWORD= ''
 EMAIL_PORT= 587
 EMAIL_USE_TLS= True  
 
