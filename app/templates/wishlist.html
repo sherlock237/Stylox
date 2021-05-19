@@ -46,12 +46,13 @@
               
               {% for p in product_detail %}
               {% for m in mywish_list|dictsort:'added_date' %}
+              
 
               {% if m.product == p %}
              
               <tr>
                 <th class="text-center" scope="row">
-                  <img src="" alt="img" />
+                  <img src="/app/{{p.image}}" alt="img" />
                 </th>
                 <td class="text-center">
                   <span class="whish-title"
@@ -60,12 +61,12 @@
                 </td>
                 <td class="text-center">
                   <span class="badge badge-danger position-static"
-                    >In Stock</span
+                    >{{p.is_available}}</span
                   >
                 </td>
                
                 <td class="text-center">
-                  <span class="whish-list-price"> {{ p.Current_price }} </span>
+                  <span class="whish-list-price">₹{{ p.Current_price }} </span>
                 </td>
 
                 <td class="text-center">
@@ -73,9 +74,15 @@
                     <span class="trash"><i class="fas fa-trash-alt"></i> </span
                   ></a>
                 </td>
+                
+                
                 <td class="text-center">
-                  <a href="#" class="btn btn-dark btn--lg">add to cart</a>
+                  <a href="#" class="btn btn-dark btn--lg" id="{{p.prid}}">add to cart</a>
                 </td>
+               
+                
+                
+                
               </tr>
              
 
@@ -84,9 +91,9 @@
              
 
               {% endif %}
-              
               {% endfor %}
               {% endfor %}
+             
 
               
 
@@ -101,4 +108,31 @@
 </section>
 <!-- product tab end -->
 <!-- footer strat -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<script>
+init={{prd_cart|safe}};
+for(var i=0;i<init.length;i++){
+  document.getElementById(init[i]['fields']['product_id']).innerHTML=`added to cart`
+}
+$(".btn-dark").click(function(e){
+  e.preventDefault();
+  var btn_id=$(this).attr('id');
+  $.ajax({
+    type:'POST',
+    url:'',
+  data:{
+    'action':'btn_add',
+    'pr_id':btn_id,
+    csrfmiddlewaretoken: '{{ csrf_token }}'
+  },
+  dataType: "JSON",
+  success:function(context){
+    xx=context.prd_len
+    document.getElementById('items_cart').innerHTML=`${xx}`;
+    document.getElementById(btn_id).innerHTML=`added to cart`;
+  }
+  })
+})
+</script>
 {% endblock %}

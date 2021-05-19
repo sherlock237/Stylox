@@ -395,13 +395,33 @@
                             class="d-flex align-items-center justify-content-between"
                           >
                             <span class="product-price">&#8360; {{i.Current_price}}</span>
+                            {% if user.is_authenticated %}
                             <button
-                              class="pro-btn add_to_cart_btn" id="{{i.prid}}"
+                              class="pro-btn add_to_cart_btn" id="{{i.prid}}" 
+                            >
+                              <span id="span_{{i.prid}}"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Add to cart"
+                                class="icon-basket"
+                              ></span>
+                            </button>
+                            {%else %}
+                            <a href="/accounts/login">
+                            <button
+                              class="pro-btn add_to_cart_btn" id="{{i.prid}}" 
                               {% comment %} data-toggle="modal"
                               data-target="#add-to-cart" {% endcomment %}
-                            >
-                              <i class="icon-basket"></i>
+                            ></a>
+                              <span id="span_{{i.prid}}"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Add to cart"
+                                class="icon-basket"
+                              ></span>
                             </button>
+                            {% endif %}
+                           
                           </div>
                         </div>
                       </div>
@@ -516,13 +536,32 @@
                             class="d-flex align-items-center justify-content-between"
                           >
                             <span class="product-price">&#8360; {{i.Current_price}}</span>
+                            {% if user.is_authenticated %}
                             <button
-                              class="pro-btn"
-                              data-toggle="modal"
-                              data-target="#add-to-cart"
+                              class="pro-btn add_to_cart_btn" id="{{i.prid}}" 
                             >
-                              <i class="icon-basket"></i>
+                              <span  id="span_{{i.prid}}"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Add to cart"
+                                class="icon-basket"
+                              ></span>
                             </button>
+                            {%else %}
+                            <a href="/accounts/login">
+                            <button
+                              class="pro-btn add_to_cart_btn" id="{{i.prid}}" 
+                              {% comment %} data-toggle="modal"
+                              data-target="#add-to-cart" {% endcomment %}
+                            ></a>
+                              <span id="span_{{i.prid}}"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Add to cart"
+                                class="icon-basket"
+                              ></span>
+                            </button>
+                            {% endif %}
                           </div>
                         </div>
                       </div>
@@ -563,7 +602,7 @@
                           {% if j.wished %}
                           <li >
                             <a class="action" href="/remove_wishlist/{{i}}" style="background: #5a5ac9; color: #ffffff;">
-                              <span
+                              <span 
                                 
                                 data-toggle="tooltip"
                                 data-placement="bottom"
@@ -637,13 +676,32 @@
                             class="d-flex align-items-center justify-content-between"
                           >
                             <span class="product-price">&#8360; {{i.Current_price}}</span>
+                            {% if user.is_authenticated %}
                             <button
-                              class="pro-btn"
-                              data-toggle="modal"
-                              data-target="#add-to-cart"
+                              class="pro-btn add_to_cart_btn" id="{{i.prid}}" 
                             >
-                              <i class="icon-basket"></i>
+                              <span id="span_{{i.prid}}"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Add to cart"
+                                class="icon-basket"
+                              ></span>
                             </button>
+                            {%else %}
+                            <a href="/accounts/login">
+                            <button
+                              class="pro-btn add_to_cart_btn" id="{{i.prid}}" 
+                              {% comment %} data-toggle="modal"
+                              data-target="#add-to-cart" {% endcomment %}
+                            ></a>
+                              <span id="span_{{i.prid}}"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Add to cart"
+                                class="icon-basket"
+                              ></span>
+                            </button>
+                            {% endif %}
                           </div>
                         </div>
                       </div>
@@ -807,13 +865,32 @@
                         class="d-flex align-items-center justify-content-between"
                       >
                         <span class="product-price">&#8360; {{i.Current_price}}</span>
-                        <button
-                          class="pro-btn"
-                          data-toggle="modal"
-                          data-target="#add-to-cart"
-                        >
-                          <i class="icon-basket"></i>
-                        </button>
+                        {% if user.is_authenticated %}
+                            <button
+                              class="pro-btn add_to_cart_btn" id="{{i.prid}}" 
+                            >
+                              <span id="span_{{i.prid}}"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Add to cart"
+                                class="icon-basket"
+                              ></span>
+                            </button>
+                            {%else %}
+                            <a href="/accounts/login">
+                            <button
+                              class="pro-btn add_to_cart_btn" id="{{i.prid}}" 
+                              {% comment %} data-toggle="modal"
+                              data-target="#add-to-cart" {% endcomment %}
+                            ></a>
+                              <span id="span_{{i.prid}}"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="Add to cart"
+                                class="icon-basket"
+                              ></span>
+                            </button>
+                            {% endif %}
                       </div>
                     </div>
                   </div>

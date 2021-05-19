@@ -13,7 +13,7 @@ class WishlistAdmin(admin.ModelAdmin):
 class SubscribeAdmin(admin.ModelAdmin):
     list_display = ['id', 'email','our_user']
 class CartAdmin(admin.ModelAdmin):
-    list_display = ['user_id', 'product_id','added_date']
+    list_display = ['user_id', 'product_id','added_date','quantity','price']
 
 admin.site.register(Banner,BannerAdmin)
 admin.site.register(Product,ProductAdmin)
