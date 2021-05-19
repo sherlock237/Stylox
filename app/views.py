@@ -83,7 +83,9 @@ class IndexView(TemplateView):
         p2=Product.objects.filter(Product_display='On_Sale')
         p3=Product.objects.filter(Product_display='Upcoming_product')
         length=0
-        if(self.request.user):
+        if not self.request.user.is_authenticated:
+            print()
+        else:
             p4=Cart.objects.filter(user_id=self.request.user)
             p4=serializers.serialize('json',list(p4))
             context['add_cart']=p4
