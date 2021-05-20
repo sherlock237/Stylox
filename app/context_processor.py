@@ -10,6 +10,11 @@ def add_variable_to_context(request):
     return obno
 
 
+@register.filter
+def get_int(value):
+    return int(value)
+
+
             
 
         
