@@ -2,6 +2,7 @@
 {% block content %}
 {% load static %}
 
+
 {% comment %} 
 <!-- offcanvas-overlay start -->
 <div class="offcanvas-overlay"></div>
@@ -725,15 +726,16 @@
     {% for i in prd %}
               <div class="col-md-6">
                         <div class="images img-container p-3">
-                            <div class="text-center p-4"> <img id="main-image" src="/app/{{i.image}}" width="350" /> </div>
-                            <div class="thumbnail text-center">
-                             <img onclick="change_image(this)" src="/app/{{i.image}}" width="85"> 
-                             <img onclick="change_image(this)" src="/app/{{i.image2}}" width="85"> 
-                             <img onclick="change_image(this)" src="/app/{{i.image3}}" width="85"> 
-                             <img onclick="change_image(this)" src="/app/{{i.image4}}" width="85"> 
+                            <div class="text-center p-4"> <img  class="img-fluid" id="main-image" src="/app/{{i.image}}"  width="500" /> </div>
+                            <div class="thumbnail text-center slick-list">
+                             <img class="img-fluid img-thumbnail" onclick="change_image(this)"  src="/app/{{i.image}}" width="85"> 
+                             <img class="img-fluid img-thumbnail" onclick="change_image(this)" src="/app/{{i.image2}}" width="85"> 
+                             <img class="img-fluid img-thumbnail"onclick="change_image(this)" src="/app/{{i.image3}}" width="85"> 
+                             <img class="img-fluid img-thumbnail"onclick="change_image(this)" src="/app/{{i.image4}}" width="85"> 
                              </div>
                         </div>
                     </div>
+                  
       <div class="col-lg-6">
         <div class="single-product-info">
           <div class="single-product-head">
@@ -2055,6 +2057,7 @@
   <button class="close"><i class="ion-android-close"></i></button>
 </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
 <script>
 var init ={{prd_cart|safe}}
 for(var i=0;i<init.length;i++)
@@ -2106,16 +2109,9 @@ $.ajax({
 })
 
 })
-var options = {
-    width: 350, 
-    height: 350,
-    zoomWidth: 500
-};
-new ImageZoom(document.getElementById("img-container"), options);
+
 
 </script>
-<script src="https://unpkg.com/js-image-zoom/js-image-zoom.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-image-zoom/js-image-zoom.min.js"></script>
 <!-- search-box and overlay end -->
 
 
