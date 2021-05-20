@@ -18,6 +18,7 @@ urlpatterns = [
     path('single-product', views.singleproduct),
     path('checkout', views.checkout),
     path('cart', views.cart,name='cart'),
+    path('shop/<str:pk>/', views.shop,name='shop'),
     #path('checkout', login_required(views.checkoutview.as_view(success_url= ''))),
     path('contact', views.contact,name='contact')
 ]

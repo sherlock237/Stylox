@@ -513,7 +513,16 @@ def checkout(request):
     return render(request, "checkout_form.html", {'cart_list': cart, 'product': product,  'total': total})
     
 
-
+def shop(request,pk):
+    prd = Product.objects.filter(category=pk)
+    li = len(prd)
+    l=Cart.objects.filter(user_id=request.user)
+    l=list(l)
+    length=0
+    for i in l:
+        length=length+i.quantity
+    context={'product':prd,'prd_len':length,'li':li}
+    return render(request,"shop-grid-list-left-sidebar.html",context)
 
 # @login_required()
 # def wishlist(request, pk):
