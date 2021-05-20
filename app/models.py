@@ -62,7 +62,7 @@ class Checkout(models.Model):
     check_id = models.ForeignKey(User, on_delete=models.CASCADE, null =True)
     Product_id = models.CharField(max_length=9000)
     items = models.CharField(max_length=5000)
-    First_Name = models.CharField(max_length=90, default="")
+    First_Name = models.CharField(max_length=90, null=False)
     Last_Name = models.CharField(max_length=90, default="")
     amount = models.IntegerField(default=0)
     email = models.CharField(max_length=90)
@@ -102,6 +102,15 @@ class Cart(models.Model):
     size=models.CharField(max_length=10,default="")
     price=models.IntegerField(default=0)
     added_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return str(self.id)
+
+class Order(models.Model):
+    user_id=models.ForeignKey(to = User, on_delete=models.CASCADE)
+    cart_id = models.IntegerField()
+    placed_id = models.IntegerField()
+    added_date = models.DateTimeField(auto_now_add=True)
+    amount = models.IntegerField()
     def __str__(self):
         return str(self.id)
 

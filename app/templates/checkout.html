@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+{% load tags %}
+{% load crispy_forms_tags %}
+      
+
+<!-- breadcrumb-section start -->
+<nav class="breadcrumb-section theme1 bg-lighten2 pt-110 pb-110">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title text-center">
+          <h2 class="title pb-4 text-dark text-capitalize">check out</h2>
+        </div>
+      </div>
+      <div class="col-12">
+        <ol
+          class="breadcrumb bg-transparent m-0 p-0 align-items-center justify-content-center"
+        >
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">check out</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- breadcrumb-section end -->
+
+<!-- checkout area start -->
+<div class="check-out-section pt-80 pb-80">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 mt-4 mt-lg-0">
+        <div class="your-order-area">
+          <h3 class="title">Your order</h3>
+          <div class="your-order-wrap gray-bg-4">
+            <div class="your-order-product-info">
+              <div class="your-order-top">
+                <ul>
+                  <li>Product</li>
+                  <li>Total</li>
+                </ul>
+              </div>
+              <div class="your-order-middle">
+                <ul>
+                  {% for c in cart_list %}
+                
+
+                  <li>
+                    <span class="order-middle-left"> {{ c.product_name }} X {{ c.quantity }}</span>
+                    <span class="order-price"> {{ c.price }} </span>
+                  </li>
+                
+                  {% endfor %}
+
+                </ul>
+              </div>
+              <div class="your-order-bottom">
+                <ul>
+                  <li class="your-order-shipping">Shipping</li>
+                  <li>Free shipping</li>
+                </ul>
+              </div>
+              <div class="your-order-total">
+                <ul>
+                  <li class="order-total">Total</li>
+                  Rs. {{ total }}
+                </ul>
+              </div>
+            </div>
+            <div class="payment-method">
+              <div class="payment-accordion element-mrg">
+                <div class="panel-group" id="accordion">
+                  <div class="panel payment-accordion">
+                    <div class="panel-heading" id="method-one">
+                      <h4 class="panel-title">
+                        <a
+                          data-toggle="collapse"
+                          data-parent="#accordion"
+                          href="#method1"
+                        >
+                          Direct bank transfer
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="method1" class="panel-collapse collapse show">
+                      <div class="panel-body">
+                        <p>
+                          Please send a check to Store Name, Store Street, Store
+                          Town, Store State / County, Store Postcode.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel payment-accordion">
+                    <div class="panel-heading" id="method-two">
+                      <h4 class="panel-title">
+                        <a
+                          class="collapsed"
+                          data-toggle="collapse"
+                          data-parent="#accordion"
+                          href="#method2"
+                        >
+                          Check payments
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="method2" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>
+                          Please send a check to Store Name, Store Street, Store
+                          Town, Store State / County, Store Postcode.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel payment-accordion">
+                    <div class="panel-heading" id="method-three">
+                      <h4 class="panel-title">
+                        <a
+                          class="collapsed"
+                          data-toggle="collapse"
+                          data-parent="#accordion"
+                          href="#method3"
+                        >
+                          Cash on delivery
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="method3" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>
+                          Please send a check to Store Name, Store Street, Store
+                          Town, Store State / County, Store Postcode.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="Place-order mt-25">
+            <a class="btn btn--xl btn-block btn-primary" href="/checkout"
+              >Place Order</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- checkout area end -->
+
+<script>
+  $('#order_up').text(
+  "Click to submit the address and move further to payment.");
+
+  function show(divId) {
+      $("#" + divId).show();
+  }
+
+  function show_order() {
+      show('div');
+      $('#order_down').text("Nothing. Just success");
+  }
+</script>
+
+{% endblock %}
