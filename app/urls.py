@@ -17,6 +17,7 @@ urlpatterns = [
     path('wishlist/', views.WishlistView.as_view(),name='wishlist'),
     path('single-product', views.singleproduct),
     path('checkout', views.checkout),
+    path('checkout_form', views.checkout_form),
     path('cart', views.cart,name='cart'),
     path('shop/<str:pk>/', views.shop,name='shop'),
     #path('checkout', login_required(views.checkoutview.as_view(success_url= ''))),

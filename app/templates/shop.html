@@ -2,6 +2,45 @@
 {% block content %}
 {% load static %}
 
+<<<<<<< HEAD:app/templates/shop-grid-list.html
+=======
+<!-- header end -->
+<!-- breadcrumb-section start -->
+<nav class="breadcrumb-section theme1 bg-lighten2 pt-110 pb-110">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title text-center">
+          <h2 class="title pb-4 text-dark text-capitalize">
+            Beauty & Cosmetics
+          </h2>
+
+          <h3>
+            {% for o in order_list %}
+            {{ o }}
+            {% endfor %}
+
+            {% for o in order %}
+            {{ o }}
+            {% endfor %}
+          </h3>
+        </div>
+      </div>
+      <div class="col-12">
+        <ol
+          class="breadcrumb bg-transparent m-0 p-0 align-items-center justify-content-center"
+        >
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Beauty & Cosmetics
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- breadcrumb-section end -->
+>>>>>>> fde300137fd177071b4ab6e07ab1637a6962522a:app/templates/shop.html
 <!-- product tab start -->
 <div class="product-tab bg-white pt-80 pb-80">
   <div class="container">
@@ -1627,6 +1666,7 @@
 </div>
 <!-- product tab end -->
 <!-- footer strat -->
+<<<<<<< HEAD:app/templates/shop-grid-list.html
 <footer class="bg-light theme1 position-relative">
   <!-- footer bottom start -->
   <div class="footer-bottom pt-80 pb-30">
@@ -2093,4 +2133,6 @@
     <script src="assets/js/plugins/plugins.min.js"></script>
     <script src="assets/js/main.js"></script> -->
 
+=======
+>>>>>>> fde300137fd177071b4ab6e07ab1637a6962522a:app/templates/shop.html
 {% endblock %}

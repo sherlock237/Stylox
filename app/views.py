@@ -2,7 +2,7 @@ from email import message
 from django.views.generic.base import TemplateView
 from app.models import Banner
 from django.shortcuts import render, redirect
-from .models import Banner,Product, Checkout, Wishlist, MyProfile,Subscribe, Contact,Cart
+from .models import Banner,Product, Checkout, Wishlist, MyProfile,Subscribe, Contact,Cart,Order
 from django.views.generic.edit import CreateView
 from django.http.response import HttpResponseRedirect
 from django.http import JsonResponse
@@ -23,12 +23,14 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.core import serializers
-from django.db.models import Count
+from django.db.models import Count, F
 import re
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from collections import OrderedDict
+
+order_number = 0
 # Create your views here.
     # if request.method =='POST' and request.POST['action']=='subs':
     #     email=request.POST.get('email')
@@ -300,6 +302,7 @@ def singleproduct(request,prid):
 
 
     prd=Product.objects.filter(prid=prid)
+    wish = Wishlist.objects.filter(product_id = prid)
     size=0
     for i in prd:
         size=i.size_available
@@ -316,6 +319,7 @@ def singleproduct(request,prid):
         'size':size,
          'prd_len':length,
          'prd_cart':prd_car,
+         'wish':wish,
     }
     return render(request, 'single-product.html',context)
 
@@ -463,22 +467,7 @@ def password_reset_request(request):
 	return render(request=request, template_name="registration/password_reset.html", context={"password_reset_form":password_reset_form})
 
 
-
-
-@login_required
-def checkout(request):
-    model = Cart
-
-
-    cart = Cart.objects.filter(user_id = request.user).values('product_id').annotate(total=Count('product_id')).order_by()
-    product = Product.objects.all()
-
-    total = 0
-
-    for ci in cart:
-        for p in product:
-            if( p.prid == ci['product_id']):
-                total += ci['total']*p.Current_price
+def checkout_form(request):
 
     if request.method == 'POST':
         msg = request.POST.get("message")
@@ -509,9 +498,112 @@ def checkout(request):
 
         message= "We've saved your billing address"
 
-        return render(request, "checkout_form.html", {'mess': message, 'cart_list': cart, 'product': product, 'total': total})
-    return render(request, "checkout_form.html", {'cart_list': cart, 'product': product,  'total': total})
+        return render(request, "checkout.html", {'mess': message})
+
+    return render(request, "checkout_form.html")
     
+
+
+            
+
+
+
+@login_required
+def checkout(request):
+
+    cart = list(Cart.objects.filter(user_id = request.user))
+    product = list(Product.objects.filter())
+
+
+
+
+    # total = 0
+
+    #print(cart,product)
+
+    final_list = []
+
+    for ci in cart:
+        for p in product:
+            if(p.prid == int(str(ci.product_id))):
+                final_list.append(
+                    {
+                        'product_name': p.Product_Name,
+                        'size': ci.size,
+                        'price':ci.price,
+                        'quantity': ci.quantity,
+                    }
+                )
+
+        total = 0
+
+        for f in final_list:
+            total += f['price']
+
+
+    if request.method == 'POST':
+        msg = request.POST.get("message")
+        fname = request.POST.get("fname")
+        lname = request.POST.get("lname")
+        cname = request.POST.get("cname")
+        email = request.POST.get("email")
+        address = request.POST.get("address")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        zip = request.POST.get("zip")
+        phone = request.POST.get("phone")
+
+        billing = Checkout(
+            First_Name = fname,
+            Last_Name = lname,
+            company = cname,
+            address = address,
+            city = city,
+            state = state,
+            zip_code = zip,
+            phone = phone, 
+            email = email,
+            Additional_information = msg
+        )
+
+        billing.save()
+
+        message= "We've saved your billing address"
+
+        global order_number
+        cart = Cart.objects.filter(user_id = request.user).values('product_id').annotate(total=Count('product_id')).order_by()
+        product = Product.objects.all()
+
+        total = 0
+        cart_product = []
+        for ci in cart:
+            for p in product:
+                if( p.prid == ci['product_id']):
+                    cart_product.append(p)
+                    total += ci['total']*p.Current_price
+
+        cart_to_delete = Cart.objects.filter(user_id = request.user)
+
+        print(cart_to_delete)
+        
+        for c in cart_to_delete:
+            order_to_add = Order(
+                user_id= request.user,
+                cart_id = c.id,
+                placed_id = order_number,
+                amount = total
+            )
+
+            print(order_to_add)
+
+            order_to_add.save()
+
+        order_number += 1
+        cart_to_delete.delete()
+
+        return render(request, "checkout.html", {'mess': message, 'cart_list': final_list, 'product': product, 'total': total})
+    return render(request, "shop.html", {'cart_list': final_list, 'product': product})
+
 
 def shop(request,pk):
     prd = Product.objects.filter(category=pk)
@@ -524,12 +616,12 @@ def shop(request,pk):
     context={'product':prd,'prd_len':length,'li':li}
     return render(request,"shop-grid-list-left-sidebar.html",context)
 
-# @login_required()
-# def wishlist(request, pk):
-#     add_to_wishlist(request,pk)
-#     product = Wishlist.objects.filter(product = pk)
-#     product_details = Product.objects.filter()
-#     return render(request, 'wishlist.html', {'product': product})
+        
+
+
+    
+
+
 
 
 
