@@ -22,5 +22,5 @@ urlpatterns = [
     #path('add_order', views.add_order),
     #path('checkout', login_required(views.checkoutview.as_view(success_url= ''))),
     path('contact', views.contact,name='contact'),
-    path('shop', views.shop)
+    path('manageorders', views.manageorders)
 ]
