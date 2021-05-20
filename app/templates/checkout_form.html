@@ -112,12 +112,8 @@
                   </textarea>
                 </div>
               </div>
-
-              <div class="form-group mb-0">
-                <button type="submit" class="btn btn-dark btn--lg">Send Billing Address</button>
             </div>
-            </div>
-          </form>
+          
 
           <div class="checkout-account-toggle open-toggle2 mb-30">
             <input placeholder="Email address" type="email" />
@@ -210,11 +206,140 @@
         </div>
       </div>
 
+      <div class="col-lg-5 mt-4 mt-lg-0">
+        <div class="your-order-area">
+          <h3 class="title">Your order</h3>
+          <div class="your-order-wrap gray-bg-4">
+            <div class="your-order-product-info">
+              <div class="your-order-top">
+                <ul>
+                  <li>Product</li>
+                  <li>Total</li>
+                </ul>
+              </div>
+              <div class="your-order-middle">
+                <ul>
+                  {% for c in cart_list %}
+                
+
+                  <li>
+                    <span class="order-middle-left"> {{ c.product_name }} X {{ c.quantity }}</span>
+                    <span class="order-price"> {{ c.price }} </span>
+                  </li>
+                
+                  {% endfor %}
+
+                </ul>
+              </div>
+              <div class="your-order-bottom">
+                <ul>
+                  <li class="your-order-shipping">Shipping</li>
+                  <li>Free shipping</li>
+                </ul>
+              </div>
+              <div class="your-order-total">
+                <ul>
+                  <li class="order-total">Total</li>
+                  {% if messages %}
+                   {% for message in messages %}
+                  Rs. {{ message }}
+                  {% endfor %}
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+            <div class="payment-method">
+              <div class="payment-accordion element-mrg">
+                <div class="panel-group" id="accordion">
+                  <div class="panel payment-accordion">
+                    <div class="panel-heading" id="method-one">
+                      <h4 class="panel-title">
+                        <a
+                          data-toggle="collapse"
+                          data-parent="#accordion"
+                          href="#method1"
+                        >
+                          Direct bank transfer
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="method1" class="panel-collapse collapse show">
+                      <div class="panel-body">
+                        <p>
+                          Please send a check to Store Name, Store Street, Store
+                          Town, Store State / County, Store Postcode.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel payment-accordion">
+                    <div class="panel-heading" id="method-two">
+                      <h4 class="panel-title">
+                        <a
+                          class="collapsed"
+                          data-toggle="collapse"
+                          data-parent="#accordion"
+                          href="#method2"
+                        >
+                          Check payments
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="method2" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>
+                          Please send a check to Store Name, Store Street, Store
+                          Town, Store State / County, Store Postcode.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel payment-accordion">
+                    <div class="panel-heading" id="method-three">
+                      <h4 class="panel-title">
+                        <a
+                          class="collapsed"
+                          data-toggle="collapse"
+                          data-parent="#accordion"
+                          href="#method3"
+                        >
+                          Cash on delivery
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="method3" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>
+                          Please send a check to Store Name, Store Street, Store
+                          Town, Store State / County, Store Postcode.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="Place-order mt-25">
+            <div class="form-group mb-0">
+                <button type="submit" class="btn btn-dark btn--lg">Place order </button>
+            </div>
+           
+          </div>
+
+        </div>
+      </div>
+
+     
+
 
     </div>
   </div>
 </div>
 <!-- checkout area end -->
+
+
+</form>
 
 
 {% endblock %}

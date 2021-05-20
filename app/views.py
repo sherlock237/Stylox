@@ -29,6 +29,7 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from collections import OrderedDict
+from django.contrib import messages
 
 order_number = 0
 # Create your views here.
@@ -540,6 +541,8 @@ def checkout(request):
         for f in final_list:
             total += f['price']
 
+        messages.success(request,str(total))
+
 
     if request.method == 'POST':
         msg = request.POST.get("message")
@@ -587,33 +590,60 @@ def checkout(request):
         cart_to_delete = Cart.objects.filter(user_id = request.user)
 
         print(cart_to_delete)
+
+        add_list = []
         
         for c in cart_to_delete:
             order_to_add = Order(
                 user_id= request.user,
                 cart_id = c.id,
-                placed_id = order_number,
-                amount = total
+                amount = c.price,
+                quantity = c.quantity,
+                status = "Received",
             )
 
-            print(order_to_add)
+            add_list.append(order_to_add)
 
-            order_to_add.save()
+            #print(order_to_add)
+
+            Order.objects.bulk_create(add_list)
 
         order_number += 1
         cart_to_delete.delete()
 
-        return render(request, "checkout.html", {'mess': message, 'cart_list': final_list, 'product': product, 'total': total})
-    return render(request, "shop.html", {'cart_list': final_list, 'product': product})
+        return redirect("/")
+    return render(request, "checkout_form.html", {'cart_list': final_list, 'product': product})
 
 
 
 
-def shop(request):
+def manageorders(request):
     orderList = Order.objects.filter(user_id = request.user.id)
-    order = Order.objects.order_by().values_list('placed_id').distinct()
+    order = Order.objects.values_list('added_date').distinct()
+    
+    placed_list = []
+    for i in range(len(order)):
+        placed_list.append(order[i][0])
 
-    return render(request, 'shop.html', { 'order': order, 'order_list': orderList} )
+    #print(placed_list)
+
+    i = 0
+
+    totalList = []
+    statusList = []
+    
+
+    for p in placed_list:
+        total = 0
+        status = ""
+        for o in orderList:
+            if(o.added_date == p):
+                total += o.amount
+                status = o.status
+        totalList.append(total)
+        statusList.append(status)
+
+    return render(request, 'manage-orders.html', { 'order': zip(placed_list, totalList,statusList), 'order_list': orderList} )
 
     
 
