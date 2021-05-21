@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+{% load tags %}
 
 <!-- header end -->
 <!-- breadcrumb-section start -->
@@ -56,14 +57,14 @@
             </thead>
             <tbody>
               
-            {% for o,i,s in order reversed %}
+            {% for o,i,s,n in order reversed %}
               
               <tr>
                
                 <td class="text-center">
                   <span class="whish-title"
                     > 
-                   {{ o }}
+                   {{ n }}
                     </span
                   >
                 </td>
@@ -78,12 +79,15 @@
                 </td>
                
                 <td class="text-center">
+                  <h4>Details:</h4>
                   {% for ol in order_list %}
                     {% if ol.added_date == o %}
 
                     <div>
-
+                      {{ product_list|get_item:ol.product_id }}
+                      X
                       {{ ol.quantity }}
+                    
 
                     </div>
 
@@ -95,7 +99,7 @@
 
                 <td class="text-center">
 
-                {{ i }}
+               Rs. {{ i }}
                 
                  
                   
