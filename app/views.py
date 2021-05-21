@@ -29,6 +29,8 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from collections import OrderedDict
+from django.contrib import messages
+from datetime import datetime, timezone , tzinfo
 
 order_number = 0
 # Create your views here.
@@ -510,37 +512,6 @@ def checkout_form(request):
 
 @login_required
 def checkout(request):
-
-    cart = list(Cart.objects.filter(user_id = request.user))
-    product = list(Product.objects.filter())
-
-
-
-
-    # total = 0
-
-    #print(cart,product)
-
-    final_list = []
-
-    for ci in cart:
-        for p in product:
-            if(p.prid == int(str(ci.product_id))):
-                final_list.append(
-                    {
-                        'product_name': p.Product_Name,
-                        'size': ci.size,
-                        'price':ci.price,
-                        'quantity': ci.quantity,
-                    }
-                )
-
-        total = 0
-
-        for f in final_list:
-            total += f['price']
-
-
     if request.method == 'POST':
         msg = request.POST.get("message")
         fname = request.POST.get("fname")
@@ -587,33 +558,99 @@ def checkout(request):
         cart_to_delete = Cart.objects.filter(user_id = request.user)
 
         print(cart_to_delete)
+
+        add_list = []
         
         for c in cart_to_delete:
             order_to_add = Order(
                 user_id= request.user,
                 cart_id = c.id,
-                placed_id = order_number,
-                amount = total
+                amount = c.price,
+                quantity = c.quantity,
+                status = "Received",
+                product_id = c.product_id,
             )
 
-            print(order_to_add)
+            add_list.append(order_to_add)
 
-            order_to_add.save()
+            #print(order_to_add)
+
+            Order.objects.bulk_create(add_list)
 
         order_number += 1
         cart_to_delete.delete()
+        return redirect("/")
 
-        return render(request, "checkout.html", {'mess': message, 'cart_list': final_list, 'product': product, 'total': total})
-    return render(request, "shop.html", {'cart_list': final_list, 'product': product})
+    else:
+        cart = list(Cart.objects.filter(user_id = request.user))
+        product = list(Product.objects.filter())
+
+        final_list = []
+
+        for ci in cart:
+            for p in product:
+                if(p.prid == int(str(ci.product_id))):
+                    final_list.append(
+                        {
+                            'product_name': p.Product_Name,
+                            'size': ci.size,
+                            'price':ci.price,
+                            'quantity': ci.quantity,
+                        }
+                    )
+
+        total1 = 0
+
+        for f in final_list:
+            total1 += f['price']
+
+        return render(request, "checkout_form.html", {'cart_list': final_list, 'product': product, 'total': total1})
+
+        
 
 
 
 
-def shop(request):
+def manageorders(request):
     orderList = Order.objects.filter(user_id = request.user.id)
-    order = Order.objects.order_by().values_list('placed_id').distinct()
+    order = Order.objects.values_list('added_date').distinct()
+    product = Product.objects.all()
 
-    return render(request, 'shop.html', { 'order': order, 'order_list': orderList} )
+    product_List = {}
+
+    for o in orderList:
+        for p in product:
+            if(p.prid == int(str(o.product_id))):
+                product_List[o.product_id] = p.Product_Name
+                
+    
+    placed_list = []
+    for i in range(len(order)):
+        placed_list.append(order[i][0])
+
+    #print(placed_list)
+
+    i = 0
+
+    totalList = []
+    statusList = []
+    numberList = []
+    
+
+    for p in placed_list:
+        total = 0
+        status = ""
+        number = 0
+        for o in orderList:
+            if(o.added_date == p):
+                total += o.amount
+                status = o.status
+                number = (o.added_date - datetime(2021,1,1, tzinfo= timezone.utc)).total_seconds()
+        totalList.append(total)
+        statusList.append(status)
+        numberList.append(number)
+
+    return render(request, 'manage-orders.html', { 'order': zip(placed_list, totalList,statusList,numberList), 'order_list': orderList, 'product_list': product_List} )
 
     
 def search(request):

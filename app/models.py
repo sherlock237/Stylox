@@ -56,9 +56,8 @@ class Contact(models.Model):
 
     
 
-
-
 class Checkout(models.Model):
+    added_date = models.DateTimeField(auto_now_add=True)
     check_id = models.ForeignKey(User, on_delete=models.CASCADE, null =True)
     Product_id = models.CharField(max_length=9000)
     items = models.CharField(max_length=5000)
@@ -108,9 +107,11 @@ class Cart(models.Model):
 class Order(models.Model):
     user_id=models.ForeignKey(to = User, on_delete=models.CASCADE)
     cart_id = models.IntegerField()
-    placed_id = models.IntegerField()
+    product_id = models.ForeignKey(to=Product,on_delete=models.CASCADE)
+    quantity=models.IntegerField(default=0)
     added_date = models.DateTimeField(auto_now_add=True)
     amount = models.IntegerField()
+    status = models.CharField(default = 'Received', max_length=200 ,choices=[('Pending', 'Pending'), ('Received', 'Received'), ('Delivered', 'Delivered')])
     def __str__(self):
         return str(self.id)
 
