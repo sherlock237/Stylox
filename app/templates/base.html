@@ -550,6 +550,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 <i class="ion-ios-arrow-down"></i>
                 </a>
                   <ul class="sub-menu">
+                  <li>
+                      <a href="{% url 'app:shop' 'Men' %}">Men</a>
+                    </li>
                     <li>
                       <a href="{% url 'app:shop' 'Shirts' %}">Shirts</a>
                     </li>
@@ -568,6 +571,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     <li>
                       <a href="{% url 'app:shop' 'Shorts' %}">Shorts</a>
                     </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Chino' %}">Chino</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Winters' %}">Winters</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Socks' %}">Socks</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Belt' %}">Belt</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Wallet' %}">Wallet</a>
+                    </li>
+                   <li>
+                      <a href="{% url 'app:shop' 'Mask' %}">Mask</a>
+                    </li>
+                   
                   </ul>
             </li>
             {% comment %} <li class="position-static"> {% endcomment %}

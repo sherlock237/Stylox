@@ -606,7 +606,11 @@ def checkout(request):
 
 
 def shop(request,pk):
-    prd = Product.objects.filter(category=pk)
+    if pk == "Men":
+        prd = Product.objects.all()
+    else:   
+        prd = Product.objects.filter(category=pk)
+    print("hloooo",prd)
     li = len(prd)
     l=Cart.objects.filter(user_id=request.user)
     l=list(l)
