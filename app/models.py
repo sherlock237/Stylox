@@ -107,6 +107,7 @@ class Cart(models.Model):
 class Order(models.Model):
     user_id=models.ForeignKey(to = User, on_delete=models.CASCADE)
     cart_id = models.IntegerField()
+    product_id = models.ForeignKey(to=Product,on_delete=models.CASCADE)
     quantity=models.IntegerField(default=0)
     added_date = models.DateTimeField(auto_now_add=True)
     amount = models.IntegerField()

@@ -12,6 +12,10 @@ def add_variable_to_context(request):
 @register.filter
 def get_int(value):
     return int(value)
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
             
 
         

@@ -30,6 +30,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from collections import OrderedDict
 from django.contrib import messages
+from datetime import datetime, timezone , tzinfo
 
 order_number = 0
 # Create your views here.
@@ -511,39 +512,6 @@ def checkout_form(request):
 
 @login_required
 def checkout(request):
-
-    cart = list(Cart.objects.filter(user_id = request.user))
-    product = list(Product.objects.filter())
-
-
-
-
-    # total = 0
-
-    #print(cart,product)
-
-    final_list = []
-
-    for ci in cart:
-        for p in product:
-            if(p.prid == int(str(ci.product_id))):
-                final_list.append(
-                    {
-                        'product_name': p.Product_Name,
-                        'size': ci.size,
-                        'price':ci.price,
-                        'quantity': ci.quantity,
-                    }
-                )
-
-        total = 0
-
-        for f in final_list:
-            total += f['price']
-
-        messages.success(request,str(total))
-
-
     if request.method == 'POST':
         msg = request.POST.get("message")
         fname = request.POST.get("fname")
@@ -600,6 +568,7 @@ def checkout(request):
                 amount = c.price,
                 quantity = c.quantity,
                 status = "Received",
+                product_id = c.product_id,
             )
 
             add_list.append(order_to_add)
@@ -610,9 +579,34 @@ def checkout(request):
 
         order_number += 1
         cart_to_delete.delete()
-
         return redirect("/")
-    return render(request, "checkout_form.html", {'cart_list': final_list, 'product': product})
+
+    else:
+        cart = list(Cart.objects.filter(user_id = request.user))
+        product = list(Product.objects.filter())
+
+        final_list = []
+
+        for ci in cart:
+            for p in product:
+                if(p.prid == int(str(ci.product_id))):
+                    final_list.append(
+                        {
+                            'product_name': p.Product_Name,
+                            'size': ci.size,
+                            'price':ci.price,
+                            'quantity': ci.quantity,
+                        }
+                    )
+
+        total1 = 0
+
+        for f in final_list:
+            total1 += f['price']
+
+        return render(request, "checkout_form.html", {'cart_list': final_list, 'product': product, 'total': total1})
+
+        
 
 
 
@@ -620,6 +614,15 @@ def checkout(request):
 def manageorders(request):
     orderList = Order.objects.filter(user_id = request.user.id)
     order = Order.objects.values_list('added_date').distinct()
+    product = Product.objects.all()
+
+    product_List = {}
+
+    for o in orderList:
+        for p in product:
+            if(p.prid == int(str(o.product_id))):
+                product_List[o.product_id] = p.Product_Name
+                
     
     placed_list = []
     for i in range(len(order)):
@@ -631,19 +634,23 @@ def manageorders(request):
 
     totalList = []
     statusList = []
+    numberList = []
     
 
     for p in placed_list:
         total = 0
         status = ""
+        number = 0
         for o in orderList:
             if(o.added_date == p):
                 total += o.amount
                 status = o.status
+                number = (o.added_date - datetime(2021,1,1, tzinfo= timezone.utc)).total_seconds()
         totalList.append(total)
         statusList.append(status)
+        numberList.append(number)
 
-    return render(request, 'manage-orders.html', { 'order': zip(placed_list, totalList,statusList), 'order_list': orderList} )
+    return render(request, 'manage-orders.html', { 'order': zip(placed_list, totalList,statusList,numberList), 'order_list': orderList, 'product_list': product_List} )
 
     
 

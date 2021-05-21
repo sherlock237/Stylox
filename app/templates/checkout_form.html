@@ -240,11 +240,7 @@
               <div class="your-order-total">
                 <ul>
                   <li class="order-total">Total</li>
-                  {% if messages %}
-                   {% for message in messages %}
-                  Rs. {{ message }}
-                  {% endfor %}
-                  {% endif %}
+                  {{ total }}
                 </ul>
               </div>
             </div>
