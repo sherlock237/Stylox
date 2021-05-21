@@ -616,7 +616,12 @@ def shop(request):
     return render(request, 'shop.html', { 'order': order, 'order_list': orderList} )
 
     
-
+def search(request):
+    if request.method == 'GET':
+        search = request.GET.get("search")
+        search_list=search.split()
+        
+    return render(request, 'search.html')
 
 
 

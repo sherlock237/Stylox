@@ -1187,7 +1187,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <!-- search-box and overlay start -->
 <div class="overlay">
   <div class="scale"></div>
-  <form class="search-box" action="#">
+  <form class="search-box" action="{% url 'app:search' %}" method="get">{% csrf_token %}
     <input type="text" name="search" placeholder="Search products..." />
     <button id="close" type="submit">
       <i class="ion-ios-search-strong"></i>
