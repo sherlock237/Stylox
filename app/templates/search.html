@@ -2,6 +2,14 @@
 {% block content %}
 {% load static %}
 
+<style>
+  @media screen and (min-width: 767px) {
+  .product-thumbnail{
+    width: 50%;
+  }
+}
+</style>
+
 <div  class="container" id="top" >
 <h4>Search Results</h4>
 <h3 class="lead"><strong class="text-danger">{{len}}</strong> result were found for the search for <strong class="text-danger">{{qry}}</strong></h3>
@@ -20,6 +28,7 @@
                         class="img-thumbnail"
                         src="/app/{{i.image}}"
                         alt="thumbnail"
+              
                       />
                     </a>
                     <!-- product links -->

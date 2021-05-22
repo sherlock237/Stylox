@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from datetime import datetime
 
 # Create your models here.
 
@@ -72,6 +73,7 @@ class Checkout(models.Model):
     phone = models.CharField(max_length=90,default="")
     Additional_information = models.CharField(max_length=1000, default="")
     company = models.CharField(max_length=200, default="")
+    order_id = models.DateTimeField(default=datetime.now)
 
     def get_absolute_url(self):
         return('/')
