@@ -525,21 +525,6 @@ def checkout(request):
         zip = request.POST.get("zip")
         phone = request.POST.get("phone")
 
-        billing = Checkout(
-            First_Name = fname,
-            Last_Name = lname,
-            company = cname,
-            address = address,
-            city = city,
-            state = state,
-            zip_code = zip,
-            phone = phone, 
-            email = email,
-            Additional_information = msg
-        )
-
-        billing.save()
-
         message= "We've saved your billing address"
 
         global order_number
@@ -574,9 +559,27 @@ def checkout(request):
 
             add_list.append(order_to_add)
 
-            #print(order_to_add)
+          
 
-            Order.objects.bulk_create(add_list)
+        Order.objects.bulk_create(add_list)
+
+        temp = Order.objects.latest('added_date')
+
+        billing = Checkout(
+            First_Name = fname,
+            Last_Name = lname,
+            company = cname,
+            address = address,
+            city = city,
+            state = state,
+            zip_code = zip,
+            phone = phone, 
+            email = email,
+            Additional_information = msg,
+            order_id = temp.added_date
+        )
+
+        billing.save()
 
         order_number += 1
         cart_to_delete.delete()
@@ -629,7 +632,7 @@ def manageorders(request):
     for i in range(len(order)):
         placed_list.append(order[i][0])
 
-    #print(placed_list)
+    print(product_List)
 
     i = 0
 

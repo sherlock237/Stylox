@@ -11,16 +11,9 @@
       <div class="col-12">
         <div class="section-title text-center">
           <h2 class="title pb-4 text-dark text-capitalize">
-            Beauty & Cosmetics
+            Orders
           </h2>
 
-          <h3>
-          
-
-            
-
-            
-          </h3>
         </div>
       </div>
       <div class="col-12">
@@ -29,7 +22,7 @@
         >
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">
-            Beauty & Cosmetics
+            Your orders
           </li>
         </ol>
       </div>
@@ -84,11 +77,10 @@
                     {% if ol.added_date == o %}
 
                     <div>
-                      {{ product_list|get_item:ol.product_id }}
+                      {{ product_list|get_item:ol.product_id_id }}
                       X
                       {{ ol.quantity }}
                     
-
                     </div>
 
                     {% endif %}

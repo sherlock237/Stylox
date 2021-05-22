@@ -5201,6 +5201,21 @@ img.second-img {
 # Blog Pages
 *------------------*/
 /* 10. Blog Section CSS */
+
+@media screen and (min-width: 767px) {
+  .product-thumbnail .position-relative{
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .grid-view-list .product-thumbnail,
+  .grid-view .product-thumbnail {
+    width: 50%;
+  }
+}
+
+
 .blog-title {
   margin: 25px 0px 0px;
 }
@@ -5703,6 +5718,13 @@ span.title {
   }
 }
 
+@media screen and (min-width: 767px) {
+  .grid-view-list .product-thumbnail,
+  .grid-view .product-thumbnail {
+    width: 50%;
+  }
+}
+
 .grid-view-list .product-thumbnail a,
 .grid-view .product-thumbnail a {
   display: block;
@@ -5719,7 +5741,7 @@ span.title {
 .grid-view .product-thumbnail img {
   display: block;
   margin: 0 auto 20px;
-  width: 100%;
+  width: 50%;
 }
 
 @media screen and (min-width: 767px) {
