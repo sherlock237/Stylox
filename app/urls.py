@@ -22,7 +22,7 @@ urlpatterns = [
     #path('add_order', views.add_order),
     #path('checkout', login_required(views.checkoutview.as_view(success_url= ''))),
     path('contact', views.contact,name='contact'),
-    path('shop', views.shop),
-    path('search',views.search,name='search')
+    # path('shop', views.shop),
+    path('search',views.search,name='search'),
     path('manageorders', views.manageorders)
 ]

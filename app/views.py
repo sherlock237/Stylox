@@ -25,6 +25,7 @@ from django.utils.encoding import force_bytes
 from django.core import serializers
 from django.db.models import Count, F
 import re
+from django.db.models import Q
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -620,8 +621,8 @@ def manageorders(request):
 
     for o in orderList:
         for p in product:
-            if(p.prid == int(str(o.product_id))):
-                product_List[o.product_id] = p.Product_Name
+            if(p.prid == int(str(o.product_id.prid))):
+                product_List[o.product_id.prid] = p.Product_Name
                 
     
     placed_list = []
@@ -651,14 +652,35 @@ def manageorders(request):
         numberList.append(number)
 
     return render(request, 'manage-orders.html', { 'order': zip(placed_list, totalList,statusList,numberList), 'order_list': orderList, 'product_list': product_List} )
-
     
 def search(request):
+    prd_id_list=[]
+    search=''
+    length=0
+    l=Cart.objects.filter(user_id=request.user)
+    l=list(l)
+    for i in l:
+        length=length+i.quantity
     if request.method == 'GET':
         search = request.GET.get("search")
         search_list=search.split()
+        for  i in search_list:
+            prdt_qry=Product.objects.filter(Q(Product_Name__icontains=i) | Q(main_class__icontains=i) | Q(category__icontains=i))
+            for j in prdt_qry:
+                if(j.prid not in prd_id_list and j.prid is not None):
+                    prd_id_list.append(j)
         
-    return render(request, 'search.html')
+        
+    context={
+        'search_res':prd_id_list,
+        'len':len(prd_id_list),
+        'qry':search,
+        'prd_len':length,
+    }
+        
+        
+        
+    return render(request, 'search.html',context)
 
 
 

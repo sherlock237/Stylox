@@ -1,4 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+
+<div  class="container" id="top" >
+<h4>Search Results</h4>
+<h3 class="lead"><strong class="text-danger">{{len}}</strong> result were found for the search for <strong class="text-danger">{{qry}}</strong></h3>
+<hr/>
+</div>
+        <div class="row grid-view-list theme1">
+          <div class="col-12 mb-30">
+            <div class="card product-card">
+            {% for i in search_res %}
+              <div class="card-body">
+                <div class="media flex-column flex-md-row">
+                  <div class="product-thumbnail position-relative">
+                    <span class="badge badge-danger top-right">{{i.discount}}%</span>
+                    <a href="{{i.prid}}">
+                      <img
+                        class="img-thumbnail"
+                        src="/app/{{i.image}}"
+                        alt="thumbnail"
+                      />
+                    </a>
+                    <!-- product links -->
+                    <ul class="actions d-flex justify-content-center">
+                      
+                    </ul>
+                    <!-- product links end-->
+                  </div>
+                  <div class="media-body pl-md-4">
+                    <div class="product-desc py-0 px-0">
+                      <h3 class="title">
+                        <a href="{{i.prid}}"
+                          >{{i.Product_Name}}</a
+                        >
+                      </h3>
+                      <span class="product-price">₹{{i.Current_price}}</span>
+                    </div>
+                    <ul class="product-list-des">
+                      <li>
+                        Block out the haters with the fresh adidas® Originals
+                        Kaval Windbreaker Face Cream.
+                    </ul>
+                    <div class="availability-list mb-20">
+                      <span><h6 class="mb-30"><span class="badge-danger">{{i.is_available}}</span></h6></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <!-- product-list End -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
