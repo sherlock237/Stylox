@@ -24,5 +24,6 @@ urlpatterns = [
     path('contact', views.contact,name='contact'),
     # path('shop', views.shop),
     path('search',views.search,name='search'),
-    path('manageorders', views.manageorders)
+    path('manageorders', views.manageorders),
+   path('shop/<str:pk>/', views.shop,name='shop'),
 ]
