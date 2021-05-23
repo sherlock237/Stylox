@@ -686,7 +686,20 @@ def search(request):
     return render(request, 'search.html',context)
 
 
-
+def shop(request,pk):
+    if pk == "Men":
+        prd = Product.objects.all()
+    else:   
+        prd = Product.objects.filter(category=pk)
+    print("hloooo",prd)
+    li = len(prd)
+    l=Cart.objects.filter(user_id=request.user)
+    l=list(l)
+    length=0
+    for i in l:
+        length=length+i.quantity
+    context={'product':prd,'prd_len':length,'li':li}
+    return render(request,"shop-grid-list-left-sidebar.html",context)
 
 
 
