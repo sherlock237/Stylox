@@ -93,6 +93,55 @@ document.addEventListener("DOMContentLoaded", function(event) {
             <li><a href="index-2.html">Home 2</a></li>
           </ul> {% endcomment %}
         </li>
+          
+<!--          shop  -->
+          <li>
+          <a href="#"><span class="menu-text">Shop</span></a>
+            <ul class="offcanvas-submenu">
+             
+                <li>
+                  <a href="{% url 'app:shop' 'Men' %}">Men</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Shirts' %}">Shirts</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Jeans' %}">Jeans</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'T-shirts' %}">T-shirts</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Pants' %}">Pants</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Trousers' %}">Trousers</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Shorts' %}">Shorts</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Chino' %}">Chino</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Winters' %}">Winters</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Socks' %}">Socks</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Belt' %}">Belt</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Wallet' %}">Wallet</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:shop' 'Mask' %}">Mask</a>
+                </li>
+            </ul> 
+        </li>
+<!--       end shop mob     -->
+      
         <li>
           {% comment %} <a href="#"><span class="menu-text">Shop</span></a> {% endcomment %}
           {% comment %} <ul class="offcanvas-submenu">
@@ -533,12 +582,59 @@ document.addEventListener("DOMContentLoaded", function(event) {
           <ul class="main-menu d-flex justify-content-center">
             <li class="active ml-0">
               <a href="{% url 'app:index' %}" class="pl-0"
-                >Home </a>
-              {% comment %} <ul class="sub-menu">
-                <li><a href="index.html">Home 1</a></li>
-                <li><a href="index-2.html">Home 2</a></li>
-              </ul> {% endcomment %}
+                 >Home </a>
             </li>
+              
+<!--               shop lap -->
+              <li>
+                <a href="#">Shop
+                <i class="ion-ios-arrow-down"></i>
+                </a>
+                  <ul class="sub-menu">
+                  <li>
+                      <a href="{% url 'app:shop' 'Men' %}">Men</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Shirts' %}">Shirts</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Jeans' %}">Jeans</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'T-shirts' %}">T-shirts</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Pants' %}">Pants</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Trousers' %}">Trousers</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Shorts' %}">Shorts</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Chino' %}">Chino</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Winters' %}">Winters</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Socks' %}">Socks</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Belt' %}">Belt</a>
+                    </li>
+                    <li>
+                      <a href="{% url 'app:shop' 'Wallet' %}">Wallet</a>
+                    </li>
+                   <li>
+                      <a href="{% url 'app:shop' 'Mask' %}">Mask</a>
+                    </li>
+                   
+                  </ul>
+            </li>
+<!--            shop end     -->
+           
             <li class="position-static">
               {% comment %} <a href="shop-grid-3-column.html"
                 >Shop <i class="ion-ios-arrow-down"></i
